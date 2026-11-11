@@ -1,0 +1,3129 @@
+ESPECIFICAÇÃO DO PRODUTO
+Requisitos funcionais completosdo aplicativo jurídico
+Aplicativos do advogado e do cliente, páginas do sistema e painel administrativo
+Cada requisito deste documento corresponde a uma página ou etapa funcional do aplicativo. A descrição registra o objetivo, os elementos exibidos, as ações permitidas, as regras de negócio, os estados e a navegação esperada.
+Escopo
+33 páginas do advogado, 29 páginas do cliente, 9 páginas gerais do sistema e 17 páginas administrativas. As funções de grupo e chamadas de voz ou vídeo permanecem fora da primeira versão.
+Leitura dos identificadores
+ADV identifica páginas do advogado, CLI identifica páginas do cliente, SYS identifica páginas gerais e ADM identifica o painel administrativo. Dentro de cada página, os requisitos funcionais recebem numeração própria, como ADV 06.01.
+Versão 1.0  /  9 de novembro de 2026
+
+Mapa das páginas
+Perfil do advogado
+ADV 01  Acesso e recuperação de conta
+ADV 02  Clientes
+ADV 03  Processos do cliente
+ADV 04  Criar processo e enviar convite
+ADV 05  Solicitações enviadas
+ADV 06  Conversa do processo
+ADV 07  Solicitações encaminhadas pela IA
+ADV 08  Dados do processo
+ADV 09  Documentos por cliente
+ADV 10  Documentos do cliente
+ADV 11  Categorias de documentos
+ADV 12  Arquivos da categoria
+ADV 13  Documento aberto
+ADV 14  Assistente do advogado
+ADV 15  Histórico do assistente
+ADV 16  Perfil e configurações
+ADV 17  Cadastro do advogado
+ADV 18  Dados profissionais e escritório
+ADV 19  Verificação de e-mail
+ADV 20  Situação da verificação profissional
+ADV 21  Central de notificações
+ADV 22  Enviar e classificar documento
+ADV 23  Compartilhar documento
+ADV 24  Histórico de versões do documento
+ADV 25  Editar processo
+ADV 26  Escritório e equipe
+ADV 27  Membros do escritório
+ADV 28  Segurança da conta
+ADV 29  Privacidade e dados da conta
+ADV 30  Ajuda e suporte
+ADV 31  Conversa interna entre advogados
+ADV 32  Grupo do processo
+ADV 33  Andamentos manuais do processo
+Perfil do cliente
+CLI 01  Acesso e recuperação de conta
+CLI 02  Processos
+CLI 03  Lista de convites
+CLI 04  Detalhes do convite
+CLI 05  Conversa do processo
+CLI 06  Detalhes do processo
+CLI 07  Perfil do advogado
+CLI 08  Documentos
+CLI 09  Categorias de documentos
+CLI 10  Lista de arquivos
+CLI 11  Visualizador de documento
+CLI 12  Assistente particular
+CLI 13  Histórico do assistente
+CLI 14  Notificações
+CLI 15  Perfil e configurações
+CLI 16  Enviar documento
+CLI 17  Enviar documento salvo a outro processo
+CLI 18  Enviar nova versão
+CLI 19  Solicitar exclusão de documento
+CLI 20  Encaminhar pergunta ao advogado
+CLI 21  Cadastro e primeiro acesso
+CLI 22  Verificação de e-mail
+CLI 23  Preferências de notificações
+CLI 24  Segurança da conta
+CLI 25  Privacidade e uso de dados
+CLI 26  Exportação e exclusão da conta
+CLI 27  Ajuda e suporte
+CLI 28  Conta sem processo ativo
+CLI 29  Histórico de solicitações sobre documentos
+Páginas gerais do sistema
+SYS 01  Abertura e direcionamento inicial
+SYS 02  Termos de uso
+SYS 03  Política de privacidade
+SYS 04  Consentimento e transparência da IA
+SYS 05  Sessão expirada
+SYS 06  Sem conexão
+SYS 07  Manutenção e indisponibilidade
+SYS 08  Atualização obrigatória
+SYS 09  Acesso negado ou conteúdo indisponível
+Painel administrativo
+ADM 01  Acesso administrativo
+ADM 02  Painel operacional
+ADM 03  Fila de verificação da OAB
+ADM 04  Análise da verificação profissional
+ADM 05  Usuários e contas
+ADM 06  Detalhes da conta
+ADM 07  Processos e vínculos
+ADM 08  Administradores do sistema
+ADM 09  Fila de suporte
+ADM 10  Atendimento do chamado
+ADM 11  Armazenamento e arquivos
+ADM 12  Logs e auditoria
+ADM 13  Incidentes de segurança
+ADM 14  Solicitações de privacidade
+ADM 15  Políticas e limites da IA
+ADM 16  Monitoramento da atuação da IA
+ADM 17  Categorias e parâmetros documentais
+
+Requisitos do perfil do advogado
+As páginas deste perfil apoiam a gestão do relacionamento, dos processos, dos documentos e da atuação humana sobre as respostas da IA.
+
+ADV 01
+Acesso e recuperação de conta
+Perfil
+Advogado
+Objetivo
+Autenticar o profissional e recuperar o acesso à conta.
+Pré-condições
+O usuário possui uma conta ou deseja iniciar o cadastro profissional.
+Elementos e informações exibidas
+•  Logomarca e identificação do aplicativo
+•  Campos de e-mail e senha
+•  Ações Entrar, Criar conta e Esqueci minha senha
+•  Avisos de verificação de e-mail e situação da OAB
+Requisitos funcionais
+ADV 01.01  Validar credenciais e abrir a página Clientes
+ADV 01.02  Iniciar cadastro com dados pessoais e profissionais
+ADV 01.03  Enviar processo de recuperação para o e-mail cadastrado
+ADV 01.04  Retomar um convite ou etapa interrompida após autenticação
+ADV 01.05  Bloquear tentativas abusivas sem revelar se um e-mail existe
+Regras de negócio e restrições
+•  O advogado deve usar conta individual, mesmo quando participar de um escritório
+•  A verificação da OAB deve ser concluída antes da liberação integral das funções profissionais
+•  Senha, recuperação e autenticação adicional seguirão a política de segurança aprovada
+Estados da página
+•  Carregando
+•  Credenciais inválidas
+•  E-mail ainda não confirmado
+•  OAB em análise, aprovada ou rejeitada
+•  Falha de conexão com opção Tentar novamente
+Navegação
+•  Sucesso abre ADV 02 Clientes
+•  Criar conta abre o fluxo de cadastro
+•  Recuperação retorna para esta página
+Decisão pendente
+Método automático, manual ou híbrido de verificação da OAB.
+
+ADV 02
+Clientes
+Perfil
+Advogado
+Objetivo
+Encontrar clientes e identificar atendimentos que exigem atenção.
+Pré-condições
+Advogado autenticado e autorizado.
+Elementos e informações exibidas
+•  Título Clientes e foto do perfil
+•  Busca por nome, e-mail ou processo
+•  Filtros Ativos e Finalizados
+•  Lista ordenada pela interação mais recente
+•  Nome, foto ou iniciais, prévia, horário e contador de não lidas
+•  Acesso a Novo cliente ou Novo processo
+•  Indicador de solicitações encaminhadas pela IA
+Requisitos funcionais
+ADV 02.01  Pesquisar e filtrar clientes
+ADV 02.02  Abrir os processos de um cliente
+ADV 02.03  Iniciar a criação de processo e convite
+ADV 02.04  Abrir a fila de solicitações da IA
+ADV 02.05  Abrir perfil e configurações
+ADV 02.06  Manter posição, busca e filtro ao retornar
+Regras de negócio e restrições
+•  A ordenação considera a interação mais recente sem esconder pendências antigas
+•  Clientes sem processo ativo ficam em Finalizados ou Inativos conforme nomenclatura aprovada
+•  Um cliente pode possuir mais de um processo e mais de um advogado, sem grupo na primeira versão
+Estados da página
+•  Lista preenchida
+•  Nenhum cliente
+•  Busca sem resultado
+•  Cliente com mensagens não lidas
+•  Cliente com pergunta aguardando advogado
+•  Erro de carregamento
+Navegação
+•  Toque no cliente abre ADV 03
+•  Novo processo abre ADV 04
+•  Solicitações abre ADV 07
+•  Foto abre ADV 16
+
+ADV 03
+Processos do cliente
+Perfil
+Advogado
+Objetivo
+Selecionar o trabalho correto antes de entrar na conversa ou nos documentos.
+Pré-condições
+Cliente selecionado em ADV 02.
+Elementos e informações exibidas
+•  Resumo do cliente com nome, e-mail e telefone
+•  Busca por título, área ou número
+•  Filtros Em andamento e Concluídos
+•  Título, área, número, prévia, horário, não lidas e situação de atendimento
+•  Ação Novo processo
+Requisitos funcionais
+ADV 03.01  Abrir a conversa de um processo
+ADV 03.02  Abrir detalhes e documentos do processo
+ADV 03.03  Pesquisar e filtrar
+ADV 03.04  Criar um novo processo para o mesmo cliente
+ADV 03.05  Consultar processos concluídos em modo somente leitura
+Regras de negócio e restrições
+•  Processos aparecem pela interação mais recente
+•  Concluído não permite novas mensagens
+•  Atendimento IA e Atendimento humano são estados distintos da situação processual
+•  Abrir uma conversa não muda sua posição sem nova interação
+Estados da página
+•  Processo com IA ativa
+•  Processo em atendimento humano
+•  Pergunta aguardando advogado
+•  Processo concluído
+•  Nenhum processo
+•  Busca sem resultado
+Navegação
+•  Processo abre ADV 06
+•  Novo processo abre ADV 04
+•  Documentos abre ADV 10
+
+ADV 04
+Criar processo e enviar convite
+Perfil
+Advogado
+Objetivo
+Cadastrar um trabalho e solicitar o aceite do cliente.
+Pré-condições
+Advogado autorizado; e-mail do cliente disponível.
+Elementos e informações exibidas
+•  E-mail do cliente
+•  Título do processo
+•  Área do direito
+•  Número do processo quando existente
+•  Descrição ou identificação interna opcional
+•  Resumo da solicitação e validade de 30 dias
+Requisitos funcionais
+ADV 04.01  Validar campos obrigatórios
+ADV 04.02  Localizar conta pelo e-mail sem expor dados indevidos
+ADV 04.03  Criar o processo em estado Aguardando aceite
+ADV 04.04  Enviar convite ao aplicativo do cliente
+ADV 04.05  Exibir confirmação e permitir abrir Solicitações enviadas
+ADV 04.06  Cancelar antes do envio sem criar vínculo
+Regras de negócio e restrições
+•  Somente o advogado inicia processos
+•  O cliente precisa aceitar antes de conversar
+•  O convite expira após 30 dias
+•  Convite não libera automaticamente documentos pessoais já armazenados
+•  Número pode ficar como Não informado quando ainda não existir
+Estados da página
+•  E-mail inválido
+•  Conta ainda não cadastrada
+•  Convite enviado
+•  Convite duplicado para o mesmo processo
+•  Falha no envio com nova tentativa
+Navegação
+•  Sucesso abre ADV 05 ou ADV 03
+•  Cancelar retorna sem alterações
+
+ADV 05
+Solicitações enviadas
+Perfil
+Advogado
+Objetivo
+Acompanhar convites enviados e reencontrar solicitações ainda sem aceite.
+Pré-condições
+Pelo menos um convite enviado.
+Elementos e informações exibidas
+•  Busca por cliente, e-mail ou processo
+•  Estados Pendente, Aceito, Recusado, Cancelado e Expirado
+•  Data de envio e validade
+•  Dados mínimos do processo e destinatário
+Requisitos funcionais
+ADV 05.01  Abrir os detalhes da solicitação
+ADV 05.02  Cancelar convite pendente
+ADV 05.03  Enviar novo convite depois de expirado
+ADV 05.04  Abrir o processo após aceite
+ADV 05.05  Copiar o e-mail de destino
+Regras de negócio e restrições
+•  Reenvio após expiração cria nova solicitação
+•  Aceite e recusa preservam histórico administrativo
+•  Cancelar convite não conclui nem exclui um processo já aceito
+Estados da página
+•  Nenhuma solicitação
+•  Pendente dentro da validade
+•  Expirada
+•  Recusada
+•  Aceita
+•  Falha de atualização
+Navegação
+•  Aceito abre ADV 03 ou ADV 06
+•  Novo convite abre ADV 04
+
+ADV 06
+Conversa do processo
+Perfil
+Advogado
+Objetivo
+Atender os participantes e acompanhar a atuação da IA no contexto de um único processo.
+Pré-condições
+Processo aceito e usuário com permissão.
+Elementos e informações exibidas
+•  Cabeçalho com participantes, processo, situação e acesso a detalhes
+•  Mensagens de clientes, Assistente IA e advogados com autoria identificada
+•  Texto, áudio, imagens, vídeos e PDFs
+•  Indicador de envio, entrega e leitura quando houver evento real
+•  Compositor, anexar, áudio e enviar
+•  Ação Assumir atendimento ou Encerrar atendimento
+Requisitos funcionais
+ADV 06.01  Ler e enviar mensagens
+ADV 06.02  Abrir anexos
+ADV 06.03  Assumir o atendimento e pausar a IA
+ADV 06.04  Encerrar o atendimento humano
+ADV 06.05  Receber rascunho e resumo da pergunta encaminhada pelo cliente
+ADV 06.06  Abrir detalhes e documentos sem perder o rascunho
+ADV 06.07  Concluir processo mediante confirmação
+Regras de negócio e restrições
+•  Cada conversa pertence a um processo e pode reunir clientes e advogados autorizados
+•  A IA responde apenas perguntas que não exigem avaliação profissional e deve usar os documentos ou andamentos disponíveis
+•  Pergunta de alto nível notifica todos os advogados participantes
+•  O primeiro profissional que assumir fica identificado, sem impedir a participação manual dos demais
+•  A IA não responde enquanto houver atendimento humano
+•  Concluir ou cancelar o processo remove o compositor e mantém o histórico somente para leitura
+•  Não criar chamadas de voz ou vídeo
+•  Dois tiques não podem significar leitura humana sem evento correspondente
+Estados da página
+•  IA ativa
+•  Aguardando advogado
+•  Atendimento humano
+•  Mensagem enviando, entregue ou falhou
+•  Anexo preparando ou indisponível
+•  Processo concluído somente consulta
+Navegação
+•  Detalhes abre ADV 08
+•  Documento abre ADV 13
+•  Voltar preserva rascunho e posição
+
+ADV 07
+Solicitações encaminhadas pela IA
+Perfil
+Advogado
+Objetivo
+Reunir perguntas que precisam de atuação profissional sem depender da ordem das conversas.
+Pré-condições
+Existe pergunta encaminhada automaticamente ou pelo assistente do cliente.
+Elementos e informações exibidas
+•  Cliente e processo
+•  Pergunta original
+•  Resumo gerado pela IA
+•  Data e estado Aguardando, Em atendimento ou Respondida
+•  Ações Ver conversa e Assumir atendimento
+Requisitos funcionais
+ADV 07.01  Pesquisar e ordenar solicitações
+ADV 07.02  Abrir a conversa correta
+ADV 07.03  Assumir atendimento
+ADV 07.04  Marcar como resolvida após resposta
+ADV 07.05  Manter sinalização até a resolução, mesmo que outro processo tenha mensagem mais recente
+Regras de negócio e restrições
+•  Ler a notificação não resolve a solicitação
+•  Assumir atendimento pausa a IA daquele processo
+•  A pergunta e o resumo não substituem a consulta ao histórico
+•  Solicitação respondida permanece consultável
+Estados da página
+•  Fila vazia
+•  Aguardando
+•  Em atendimento
+•  Respondida
+•  Processo concluído antes da resposta
+Navegação
+•  Ver conversa abre ADV 06
+•  Cliente abre ADV 03
+
+ADV 08
+Dados do processo
+Perfil
+Advogado
+Objetivo
+Consultar e administrar os dados principais do trabalho.
+Pré-condições
+Processo selecionado.
+Elementos e informações exibidas
+•  Título, área, número e situação
+•  Participantes vinculados
+•  Data de criação e responsáveis
+•  Estado do atendimento por IA ou humano
+•  Ações Conversa, Andamentos, Documentos e Concluir processo
+Requisitos funcionais
+ADV 08.01  Editar os campos autorizados
+ADV 08.02  Abrir conversa, andamentos e documentos
+ADV 08.03  Administrar participantes quando autorizado
+ADV 08.04  Concluir o processo mediante confirmação
+ADV 08.05  Consultar vínculo e histórico básico
+ADV 08.06  Copiar número do processo
+Regras de negócio e restrições
+•  Somente o advogado altera ou conclui o processo
+•  Concluir processo pausa a IA e bloqueia novos envios
+•  Encerrar atendimento humano não conclui processo
+•  Não mostrar audiência, prazo ou atualização oficial sem fonte definida
+Estados da página
+•  Ativo
+•  Aguardando aceite
+•  Concluído
+•  Vínculo suspenso
+•  Número não informado
+Navegação
+•  Conversa abre ADV 06
+•  Andamentos abrem ADV 33
+•  Documentos abrem ADV 11
+•  Grupo abre ADV 32
+
+ADV 09
+Documentos por cliente
+Perfil
+Advogado
+Objetivo
+Escolher o cliente antes de navegar pelos arquivos.
+Pré-condições
+Advogado autenticado.
+Elementos e informações exibidas
+•  Busca por nome do cliente
+•  Lista de clientes com quantidade de processos e documentos
+•  Indicador de triagem automática
+•  Filtros Ativos e Finalizados
+Requisitos funcionais
+ADV 09.01  Pesquisar cliente
+ADV 09.02  Abrir a estrutura documental do cliente
+ADV 09.03  Acessar clientes com processos concluídos para consulta
+ADV 09.04  Iniciar envio manual de arquivo com destino obrigatório
+Regras de negócio e restrições
+•  Arquivos precisam permanecer isolados por cliente e processo
+•  Quantidade deve respeitar as permissões do advogado
+•  Triagem automática não pode ocultar arquivo quando a classificação falhar
+Estados da página
+•  Lista preenchida
+•  Nenhum documento
+•  Busca sem resultado
+•  Classificação pendente
+•  Erro de carregamento
+Navegação
+•  Cliente abre ADV 10
+•  Perfil abre ADV 16
+
+ADV 10
+Documentos do cliente
+Perfil
+Advogado
+Objetivo
+Selecionar documentos pessoais ou o processo que fornecerá o contexto.
+Pré-condições
+Cliente selecionado em ADV 09.
+Elementos e informações exibidas
+•  Resumo do cliente
+•  Entrada Documentos pessoais
+•  Lista de processos do cliente
+•  Quantidade de arquivos e situação de cada processo
+•  Busca por processo
+Requisitos funcionais
+ADV 10.01  Abrir documentos pessoais
+ADV 10.02  Abrir categorias de um processo
+ADV 10.03  Consultar arquivos de processo concluído
+ADV 10.04  Enviar novo documento escolhendo o destino
+ADV 10.05  Retornar mantendo a seleção do cliente
+Regras de negócio e restrições
+•  Documentos pessoais não são compartilhados automaticamente com todos os processos
+•  Processo concluído permite consulta, não novas mensagens
+•  O mesmo arquivo pode ser associado a contexto permitido sem duplicação silenciosa de acesso
+Estados da página
+•  Sem documentos pessoais
+•  Processos ativos e concluídos
+•  Classificação pendente
+•  Sem resultado
+Navegação
+•  Documentos pessoais ou processo abrem ADV 11
+
+ADV 11
+Categorias de documentos
+Perfil
+Advogado
+Objetivo
+Organizar a navegação pelos tipos de arquivo do cliente ou processo.
+Pré-condições
+Cliente e contexto documental selecionados.
+Elementos e informações exibidas
+•  Contexto visível: cliente, processo ou documentos pessoais
+•  Categorias como Contratos, Petições, Recursos e Comprovantes
+•  Quantidade de arquivos por categoria
+•  Busca e ação Adicionar documento
+Requisitos funcionais
+ADV 11.01  Abrir categoria
+ADV 11.02  Criar ou selecionar categoria no envio
+ADV 11.03  Pesquisar categoria
+ADV 11.04  Mostrar Organização pendente quando a IA não classificar
+ADV 11.05  Voltar para o contexto anterior
+Regras de negócio e restrições
+•  Categorias finais precisam ser configuráveis
+•  A IA pode sugerir a categoria, mas o arquivo continua acessível em caso de falha
+•  Mover categoria não pode alterar silenciosamente a fonte de uma resposta anterior
+Estados da página
+•  Categoria vazia
+•  Classificação pendente
+•  Categoria com arquivos
+•  Busca sem resultado
+Navegação
+•  Categoria abre ADV 12
+•  Adicionar abre o fluxo de envio
+
+ADV 12
+Arquivos da categoria
+Perfil
+Advogado
+Objetivo
+Encontrar e administrar documentos dentro do contexto escolhido.
+Pré-condições
+Categoria selecionada.
+Elementos e informações exibidas
+•  Nome, tipo, data, tamanho e versão atual
+•  Busca por nome
+•  Indicador de origem ou compartilhamento quando necessário
+•  Menu de ações por arquivo
+Requisitos funcionais
+ADV 12.01  Abrir e baixar
+ADV 12.02  Compartilhar com o cliente
+ADV 12.03  Renomear
+ADV 12.04  Mover para outra categoria
+ADV 12.05  Excluir conforme política
+ADV 12.06  Enviar nova versão
+ADV 12.07  Adicionar documento
+Regras de negócio e restrições
+•  Ações dependem de permissão e retenção
+•  Excluir pode exigir confirmação e preservar auditoria
+•  Nova versão não substitui a referência histórica de mensagens antigas
+•  Mover ou renomear mantém vínculo com respostas que citaram o arquivo
+Estados da página
+•  Lista preenchida
+•  Categoria vazia
+•  Busca sem resultado
+•  Upload em processamento
+•  Falha de classificação
+•  Arquivo indisponível
+Navegação
+•  Abrir abre ADV 13
+•  Mover retorna para ADV 11 após confirmação
+
+ADV 13
+Documento aberto
+Perfil
+Advogado
+Objetivo
+Visualizar o conteúdo e executar ações compatíveis com o formato.
+Pré-condições
+Arquivo acessível ao advogado.
+Elementos e informações exibidas
+•  Nome, categoria, cliente e processo
+•  Prévia do arquivo
+•  Páginas e zoom para PDF
+•  Reprodução para áudio e vídeo
+•  Data, tamanho e versão
+•  Menu de ações
+Requisitos funcionais
+ADV 13.01  Navegar no documento
+ADV 13.02  Baixar
+ADV 13.03  Compartilhar com o cliente
+ADV 13.04  Renomear, mover ou excluir
+ADV 13.05  Abrir conversa ou resposta que citou o arquivo
+ADV 13.06  Consultar histórico de versões quando disponível
+Regras de negócio e restrições
+•  Formato sem prévia oferece download
+•  Compartilhar exige confirmação do destinatário e processo
+•  Alterações futuras não reescrevem anexos históricos
+•  Acesso deve ser verificado novamente ao abrir e baixar
+Estados da página
+•  Carregando
+•  Prévia disponível
+•  Formato não suportado
+•  Arquivo indisponível
+•  Nova versão disponível
+Navegação
+•  Voltar retorna a ADV 12
+•  Conversa relacionada abre ADV 06
+
+ADV 14
+Assistente do advogado
+Perfil
+Advogado
+Objetivo
+Consultar informações nos documentos autorizados e iniciar conversas de trabalho com a IA.
+Pré-condições
+Advogado autenticado e com pelo menos um contexto permitido.
+Elementos e informações exibidas
+•  Nova conversa e histórico
+•  Seletor de cliente ou processo
+•  Campo de pergunta
+•  Sugestões de uso
+•  Mensagens, anexos citados e estado de geração
+•  Ação interromper resposta
+Requisitos funcionais
+ADV 14.01  Selecionar contexto
+ADV 14.02  Perguntar e continuar conversa
+ADV 14.03  Localizar e explicar informações de documentos
+ADV 14.04  Abrir o arquivo citado no trecho correspondente
+ADV 14.05  Interromper resposta
+ADV 14.06  Iniciar nova conversa
+ADV 14.07  Abrir histórico
+Regras de negócio e restrições
+•  A consulta respeita cliente, processo e permissões
+•  Trocar contexto inicia conversa separada ou exige confirmação
+•  A IA não afirma que consultou arquivo inexistente
+•  Elaboração de peças, pesquisa legislativa e análise ampliada só entram após aprovação de escopo
+Estados da página
+•  Tela vazia
+•  Gerando
+•  Resposta concluída
+•  Sem base suficiente
+•  Falha de serviço
+•  Sem contexto habilitado
+Navegação
+•  Histórico abre ADV 15
+•  Arquivo citado abre ADV 13
+
+ADV 15
+Histórico do assistente
+Perfil
+Advogado
+Objetivo
+Localizar e reabrir conversas anteriores com o assistente.
+Pré-condições
+Existe ao menos uma conversa ou o usuário deseja iniciar uma nova.
+Elementos e informações exibidas
+•  Busca por título, cliente ou processo
+•  Lista por data recente
+•  Título, contexto e prévia
+•  Ação Nova conversa
+Requisitos funcionais
+ADV 15.01  Pesquisar
+ADV 15.02  Abrir conversa mantendo o contexto original
+ADV 15.03  Iniciar nova conversa
+ADV 15.04  Renomear ou excluir histórico somente se a política for aprovada
+Regras de negócio e restrições
+•  Históricos não misturam documentos de clientes diferentes
+•  Reabrir mantém o contexto e as permissões atuais
+•  Ações de exclusão ainda dependem da política de retenção
+Estados da página
+•  Histórico vazio
+•  Busca sem resultado
+•  Contexto não mais disponível
+•  Erro de carregamento
+Navegação
+•  Conversa abre ADV 14
+•  Nova conversa abre ADV 14 vazia
+Decisão pendente
+Gestão definitiva do histórico ainda será decidida.
+
+ADV 16
+Perfil e configurações
+Perfil
+Advogado
+Objetivo
+Gerenciar identidade profissional, segurança e preferências.
+Pré-condições
+Advogado autenticado.
+Elementos e informações exibidas
+•  Foto, nome, escritório, OAB, telefone e e-mail
+•  Dados profissionais
+•  Segurança
+•  Notificações
+•  Privacidade e uso da IA
+•  Escritório e equipe quando aplicável
+•  Ajuda e suporte
+•  Sair
+Requisitos funcionais
+ADV 16.01  Editar dados permitidos
+ADV 16.02  Acompanhar situação da verificação da OAB
+ADV 16.03  Alterar senha e configurar segurança
+ADV 16.04  Ativar ou desativar categorias de notificações
+ADV 16.05  Abrir escritório e equipe
+ADV 16.06  Solicitar suporte e cópia de dados
+ADV 16.07  Sair da conta
+Regras de negócio e restrições
+•  Número da OAB não pode aparecer como verificado antes da validação
+•  Mudança de e-mail pode exigir nova confirmação
+•  Alterações sensíveis exigem reautenticação
+•  Cada integrante do escritório mantém conta individual
+Estados da página
+•  Perfil completo ou incompleto
+•  OAB em análise
+•  Vínculo com escritório ativo ou ausente
+•  Falha ao salvar
+•  Alteração confirmada
+Navegação
+•  Foto em ADV 02 abre esta página
+•  Sair retorna a ADV 01
+
+ADV 17
+Cadastro do advogado
+Perfil
+Advogado
+Objetivo
+Criar a conta individual que será usada pelo profissional.
+Pré-condições
+Usuário ainda não autenticado.
+Elementos e informações exibidas
+•  Nome completo e fotografia opcional
+•  CPF, telefone, e-mail e senha
+•  Aceite dos termos e da política de privacidade
+•  Indicador das etapas do cadastro
+Requisitos funcionais
+ADV 17.01  Validar os dados obrigatórios
+ADV 17.02  Verificar se o e-mail já possui conta
+ADV 17.03  Criar cadastro ainda não habilitado profissionalmente
+ADV 17.04  Enviar verificação de e-mail
+ADV 17.05  Salvar o progresso permitido e continuar
+Regras de negócio e restrições
+•  Cada profissional deve possuir conta individual
+•  A conta não recebe funções jurídicas antes da validação profissional
+•  CPF e e-mail não podem ser expostos em mensagens de erro
+Estados da página
+•  Formulário inicial
+•  Dados inválidos
+•  E-mail já utilizado
+•  Cadastro criado
+•  Falha ao salvar
+Navegação
+•  Continuar abre ADV 18
+•  Entrar retorna a ADV 01
+
+ADV 18
+Dados profissionais e escritório
+Perfil
+Advogado
+Objetivo
+Coletar os dados necessários para identificar e verificar o profissional.
+Pré-condições
+ADV 17 concluída e e-mail informado.
+Elementos e informações exibidas
+•  Número e estado da OAB
+•  Nome profissional
+•  Nome e dados básicos do escritório quando houver
+•  Áreas de atuação opcionais
+•  Envio dos comprovantes exigidos
+Requisitos funcionais
+ADV 18.01  Validar o formato da inscrição
+ADV 18.02  Consultar duplicidade de OAB
+ADV 18.03  Anexar comprovantes
+ADV 18.04  Salvar dados profissionais
+ADV 18.05  Enviar cadastro para verificação
+Regras de negócio e restrições
+•  A OAB não pode aparecer como verificada antes da aprovação
+•  Escritório é opcional e não cria conta compartilhada
+•  Documentos de verificação possuem acesso administrativo restrito
+Estados da página
+•  Preenchimento
+•  Documento enviando
+•  Dados inconsistentes
+•  Enviado para análise
+•  Falha no envio
+Navegação
+•  Enviar abre ADV 19 ou ADV 20
+•  Voltar preserva o cadastro
+
+ADV 19
+Verificação de e-mail
+Perfil
+Advogado
+Objetivo
+Confirmar que o endereço de e-mail pertence ao titular da conta.
+Pré-condições
+Código ou link de verificação enviado.
+Elementos e informações exibidas
+•  E-mail parcialmente oculto
+•  Campo para código
+•  Tempo para novo envio
+•  Ações Confirmar, Reenviar e Alterar e-mail
+Requisitos funcionais
+ADV 19.01  Confirmar código
+ADV 19.02  Reenviar após o intervalo permitido
+ADV 19.03  Trocar o e-mail mediante validação
+ADV 19.04  Retomar o fluxo após confirmação
+Regras de negócio e restrições
+•  Código expira e possui limite de tentativas
+•  Reenvio invalida códigos anteriores quando a política determinar
+•  Erros não revelam dados de outras contas
+Estados da página
+•  Aguardando código
+•  Código inválido
+•  Código expirado
+•  E-mail confirmado
+•  Limite temporário
+Navegação
+•  Sucesso abre ADV 20
+•  Alterar e-mail retorna a ADV 17
+
+ADV 20
+Situação da verificação profissional
+Perfil
+Advogado
+Objetivo
+Informar o andamento da análise da OAB e orientar correções.
+Pré-condições
+Dados profissionais enviados.
+Elementos e informações exibidas
+•  Estado Em análise, Aprovado, Correção necessária ou Rejeitado
+•  Data do envio
+•  Pendências e justificativa permitida
+•  Ações Corrigir dados e Falar com suporte
+Requisitos funcionais
+ADV 20.01  Atualizar o estado da análise
+ADV 20.02  Abrir os campos que exigem correção
+ADV 20.03  Reenviar evidências
+ADV 20.04  Abrir suporte
+ADV 20.05  Liberar funções profissionais após aprovação
+Regras de negócio e restrições
+•  Somente equipe ou integração autorizada altera o resultado
+•  Justificativas não devem expor critérios antifraude
+•  Rejeição e correção precisam permanecer auditáveis
+Estados da página
+•  Em análise
+•  Aprovado
+•  Correção necessária
+•  Rejeitado
+•  Serviço indisponível
+Navegação
+•  Aprovado abre ADV 02
+•  Correção abre ADV 18
+•  Suporte abre ADV 30
+
+ADV 21
+Central de notificações
+Perfil
+Advogado
+Objetivo
+Reunir eventos profissionais que exigem consulta ou ação.
+Pré-condições
+Advogado autenticado.
+Elementos e informações exibidas
+•  Lista por data
+•  Tipo, origem, resumo e horário
+•  Indicador de não lida
+•  Filtros Todas e Não lidas
+•  Ação Marcar todas como lidas
+Requisitos funcionais
+ADV 21.01  Abrir o destino correto
+ADV 21.02  Marcar como lida ao abrir
+ADV 21.03  Marcar todas como lidas
+ADV 21.04  Filtrar e atualizar a lista
+ADV 21.05  Remover notificações locais conforme política
+Regras de negócio e restrições
+•  Notificação não substitui o registro original
+•  Pergunta encaminhada continua pendente até resposta
+•  O destino deve respeitar a permissão atual
+Estados da página
+•  Lista preenchida
+•  Nenhuma notificação
+•  Sem não lidas
+•  Destino indisponível
+•  Falha ao atualizar
+Navegação
+•  Convite abre ADV 05
+•  Pergunta abre ADV 06 ou ADV 07
+•  Documento abre ADV 13
+•  Escritório abre ADV 26
+
+ADV 22
+Enviar e classificar documento
+Perfil
+Advogado
+Objetivo
+Adicionar um arquivo e confirmar seu cliente, processo e categoria.
+Pré-condições
+Advogado possui acesso ao destino.
+Elementos e informações exibidas
+•  Seletor ou captura de arquivo
+•  Cliente e processo de destino
+•  Categoria sugerida pela IA
+•  Nome, observação e opção de compartilhar
+•  Resumo da classificação antes do envio
+Requisitos funcionais
+ADV 22.01  Selecionar ou capturar arquivo
+ADV 22.02  Validar formato e tamanho
+ADV 22.03  Executar análise e sugerir categoria
+ADV 22.04  Alterar destino ou categoria
+ADV 22.05  Confirmar upload
+ADV 22.06  Cancelar sem criar documento
+Regras de negócio e restrições
+•  Destino é obrigatório
+•  Sugestão da IA precisa ser revisável
+•  Falha de classificação não pode eliminar o arquivo
+•  Compartilhamento exige confirmação explícita
+Estados da página
+•  Selecionando
+•  Analisando
+•  Pronto para confirmar
+•  Enviando
+•  Concluído
+•  Falha ou formato inválido
+Navegação
+•  Concluído abre ADV 12 ou ADV 13
+•  Compartilhar pode abrir ADV 23
+
+ADV 23
+Compartilhar documento
+Perfil
+Advogado
+Objetivo
+Liberar um arquivo para o cliente correto de forma controlada.
+Pré-condições
+Documento acessível e cliente vinculado.
+Elementos e informações exibidas
+•  Documento e versão
+•  Cliente destinatário
+•  Processo relacionado
+•  Permissão de visualizar e baixar
+•  Prévia da mensagem opcional
+Requisitos funcionais
+ADV 23.01  Selecionar processo quando houver mais de um
+ADV 23.02  Confirmar destinatário e versão
+ADV 23.03  Compartilhar e registrar auditoria
+ADV 23.04  Cancelar
+ADV 23.05  Revogar acesso quando permitido
+Regras de negócio e restrições
+•  Compartilhamento nunca é presumido pelo vínculo
+•  O cliente acessa apenas a versão liberada ou a política aprovada
+•  Revogação não apaga cópias já baixadas
+Estados da página
+•  Pronto para compartilhar
+•  Compartilhando
+•  Compartilhado
+•  Acesso já existente
+•  Falha
+Navegação
+•  Sucesso retorna a ADV 13
+•  Abrir conversa abre ADV 06
+
+ADV 24
+Histórico de versões do documento
+Perfil
+Advogado
+Objetivo
+Consultar versões e compreender qual conteúdo foi usado em cada momento.
+Pré-condições
+Documento possui uma ou mais versões.
+Elementos e informações exibidas
+•  Lista de versões, datas e responsáveis
+•  Versão atual identificada
+•  Tamanho, formato e observação
+•  Vínculos com mensagens ou respostas da IA
+Requisitos funcionais
+ADV 24.01  Abrir e baixar uma versão
+ADV 24.02  Enviar nova versão
+ADV 24.03  Comparar metadados
+ADV 24.04  Consultar onde a versão foi citada
+ADV 24.05  Restaurar versão apenas se a política permitir
+Regras de negócio e restrições
+•  Versões antigas são imutáveis
+•  Nova versão não reescreve citações passadas
+•  Exclusão segue retenção e auditoria
+Estados da página
+•  Uma versão
+•  Múltiplas versões
+•  Versão indisponível
+•  Upload em processamento
+•  Falha
+Navegação
+•  Abrir versão usa ADV 13
+•  Nova versão usa CLI 18 adaptada ao advogado
+Decisão pendente
+Política definitiva de restauração e retenção de versões.
+
+ADV 25
+Editar processo
+Perfil
+Advogado
+Objetivo
+Atualizar os dados administrativos permitidos do processo.
+Pré-condições
+Processo existente e advogado autorizado.
+Elementos e informações exibidas
+•  Título, área e número
+•  Descrição interna
+•  Responsável
+•  Situação processual
+•  Resumo das alterações
+Requisitos funcionais
+ADV 25.01  Editar campos permitidos
+ADV 25.02  Validar número e dados
+ADV 25.03  Salvar alterações
+ADV 25.04  Descartar mudanças
+ADV 25.05  Consultar registro anterior
+Regras de negócio e restrições
+•  Somente advogado altera dados do processo
+•  Conclusão exige fluxo próprio e confirmação
+•  Mudanças relevantes devem ser auditadas
+•  Não confundir atendimento humano com situação processual
+Estados da página
+•  Visualização
+•  Edição
+•  Salvando
+•  Alteração concluída
+•  Conflito ou falha
+Navegação
+•  Salvar retorna a ADV 08
+•  Cancelar retorna sem alteração
+
+ADV 26
+Escritório e equipe
+Perfil
+Advogado
+Objetivo
+Acessar a estrutura colaborativa disponível para contas vinculadas a um escritório.
+Pré-condições
+Advogado autenticado e integrante de um escritório.
+Elementos e informações exibidas
+•  Nome e identificação do escritório
+•  Lista resumida de integrantes
+•  Processos e conversas compartilhadas autorizadas
+•  Ações Membros, Conversas internas e Grupos de processos
+Requisitos funcionais
+ADV 26.01  Consultar integrantes
+ADV 26.02  Abrir conversas internas
+ADV 26.03  Abrir processos em que participa
+ADV 26.04  Iniciar convite de profissional quando autorizado
+ADV 26.05  Consultar atividade recente do escritório
+Regras de negócio e restrições
+•  Conta individual mantém as funções profissionais básicas
+•  O modo escritório acrescenta colaboração sem transformar contas pessoais em uma conta compartilhada
+•  Cada acesso e mensagem precisa identificar o profissional responsável
+Estados da página
+•  Escritório ativo
+•  Usuário sem escritório
+•  Convite pendente
+•  Acesso suspenso
+•  Falha de carregamento
+Navegação
+•  Membros abre ADV 27
+•  Conversa interna abre ADV 31
+•  Grupo de processo abre ADV 32
+
+ADV 27
+Membros do escritório
+Perfil
+Advogado
+Objetivo
+Consultar os profissionais do escritório e administrar vínculos autorizados.
+Pré-condições
+Usuário vinculado ao escritório.
+Elementos e informações exibidas
+•  Nome, fotografia, OAB e situação de cada integrante
+•  Busca por profissional
+•  Convites pendentes
+•  Identificação de responsáveis pelos processos
+Requisitos funcionais
+ADV 27.01  Pesquisar integrante
+ADV 27.02  Abrir perfil profissional
+ADV 27.03  Convidar advogado quando autorizado
+ADV 27.04  Cancelar convite pendente
+ADV 27.05  Remover integrante mediante confirmação e regra de transferência
+Regras de negócio e restrições
+•  Cada integrante usa conta individual
+•  Remoção não pode apagar mensagens ou autoria histórica
+•  Processos precisam manter ao menos um responsável autorizado
+Estados da página
+•  Lista preenchida
+•  Convite pendente
+•  Integrante ativo
+•  Integrante removido
+•  Sem permissão
+Navegação
+•  Escritório abre ADV 26
+•  Perfil abre ADV 16
+•  Conversa interna abre ADV 31
+Decisão pendente
+Papéis internos do escritório e regras definitivas de transferência ainda serão decididos.
+
+ADV 28
+Segurança da conta
+Perfil
+Advogado
+Objetivo
+Proteger credenciais e controlar sessões ativas.
+Pré-condições
+Advogado autenticado e, para ações sensíveis, reautenticado.
+Elementos e informações exibidas
+•  Alteração de senha
+•  Autenticação adicional quando adotada
+•  Lista de dispositivos e sessões
+•  Último acesso
+•  Ação Encerrar outras sessões
+Requisitos funcionais
+ADV 28.01  Alterar senha
+ADV 28.02  Ativar ou desativar autenticação adicional
+ADV 28.03  Revogar uma sessão
+ADV 28.04  Encerrar todas as outras sessões
+ADV 28.05  Reautenticar antes de ação sensível
+Regras de negócio e restrições
+•  Senha atual ou fator adicional é exigido
+•  Sessão atual não é encerrada sem confirmação
+•  Eventos de segurança geram registro e notificação
+Estados da página
+•  Protegida
+•  Senha fraca
+•  Código inválido
+•  Sessão revogada
+•  Atividade suspeita
+Navegação
+•  Retorna a ADV 16
+•  Recuperação pode abrir ADV 01
+
+ADV 29
+Privacidade e dados da conta
+Perfil
+Advogado
+Objetivo
+Permitir consulta e exercício dos direitos relacionados aos dados pessoais.
+Pré-condições
+Advogado autenticado.
+Elementos e informações exibidas
+•  Preferências de privacidade
+•  Resumo do uso de dados e IA
+•  Ações Exportar dados e Solicitar exclusão
+•  Situação das solicitações
+•  Links para políticas
+Requisitos funcionais
+ADV 29.01  Registrar preferências opcionais
+ADV 29.02  Solicitar exportação
+ADV 29.03  Solicitar exclusão da conta
+ADV 29.04  Acompanhar pedido
+ADV 29.05  Cancelar pedido quando permitido
+Regras de negócio e restrições
+•  Exclusão deve explicar efeitos legais e de retenção
+•  Pedidos exigem confirmação de identidade
+•  Dados sujeitos a obrigação legal podem ser retidos com justificativa
+Estados da página
+•  Sem solicitação
+•  Em validação
+•  Em processamento
+•  Concluída
+•  Recusada com fundamento
+Navegação
+•  Políticas abrem SYS 02 ou SYS 03
+•  Suporte abre ADV 30
+
+ADV 30
+Ajuda e suporte
+Perfil
+Advogado
+Objetivo
+Oferecer orientação e contato rastreável com a equipe do aplicativo.
+Pré-condições
+Usuário autenticado ou em fluxo de acesso permitido.
+Elementos e informações exibidas
+•  Busca de ajuda
+•  Perguntas frequentes
+•  Categorias de atendimento
+•  Lista de chamados
+•  Ação Novo chamado
+Requisitos funcionais
+ADV 30.01  Pesquisar artigos
+ADV 30.02  Criar chamado com descrição e anexo
+ADV 30.03  Consultar respostas
+ADV 30.04  Responder ao chamado
+ADV 30.05  Encerrar atendimento
+ADV 30.06  Reabrir conforme política
+Regras de negócio e restrições
+•  Suporte não acessa documentos jurídicos sem base e autorização
+•  Dados sensíveis devem ser minimizados
+•  Cada chamado possui protocolo e histórico
+Estados da página
+•  Sem chamados
+•  Aberto
+•  Aguardando usuário
+•  Em análise
+•  Resolvido
+•  Falha de envio
+Navegação
+•  Chamado abre detalhe nesta mesma estrutura
+•  Voltar retorna à origem
+
+ADV 31
+Conversa interna entre advogados
+Perfil
+Advogado
+Objetivo
+Permitir colaboração reservada entre profissionais sem expor o conteúdo ao cliente.
+Pré-condições
+Advogado integrante de escritório e participante autorizado.
+Elementos e informações exibidas
+•  Identificação dos participantes
+•  Processo relacionado quando aplicável
+•  Mensagens, anexos e autoria nominal
+•  Compositor de texto, áudio e arquivos
+•  Aviso visível de conversa interna
+Requisitos funcionais
+ADV 31.01  Enviar e receber mensagens
+ADV 31.02  Anexar documento interno
+ADV 31.03  Responder a mensagem específica
+ADV 31.04  Abrir processo relacionado
+ADV 31.05  Adicionar participante quando autorizado
+ADV 31.06  Consultar histórico
+Regras de negócio e restrições
+•  Cliente não acessa esta conversa
+•  A autoria de cada mensagem é permanente
+•  Anexos internos não são liberados ao cliente automaticamente
+•  A IA somente consulta o conteúdo interno quando houver autorização e política aprovada
+Estados da página
+•  Conversa ativa
+•  Somente leitura
+•  Participante removido
+•  Mensagem enviando ou falhou
+•  Arquivo indisponível
+Navegação
+•  Processo abre ADV 08
+•  Documento abre ADV 13
+•  Equipe abre ADV 27
+
+ADV 32
+Grupo do processo
+Perfil
+Advogado
+Objetivo
+Reunir clientes e advogados autorizados na conversa oficial de um processo.
+Pré-condições
+Processo ativo com mais de um participante.
+Elementos e informações exibidas
+•  Nome do processo e participantes
+•  Mensagens com autoria individual
+•  Estado Assistente IA ou Atendimento humano
+•  Ação Participantes
+•  Texto, áudio, imagens, vídeos e PDFs
+Requisitos funcionais
+ADV 32.01  Enviar mensagens e anexos
+ADV 32.02  Consultar participantes
+ADV 32.03  Adicionar ou remover participante quando autorizado
+ADV 32.04  Assumir atendimento
+ADV 32.05  Encerrar atendimento humano
+ADV 32.06  Abrir documentos e dados do processo
+Regras de negócio e restrições
+•  Perguntas de baixo risco podem ser respondidas pela IA com base no contexto autorizado
+•  Perguntas que exigem avaliação profissional notificam todos os advogados do grupo
+•  O primeiro advogado que assumir fica identificado como responsável pelo atendimento
+•  Todos continuam vendo a conversa e podem participar manualmente
+•  Processo concluído ou cancelado fica somente para leitura
+Estados da página
+•  Assistente ativo
+•  Aguardando advogado
+•  Atendimento assumido por profissional identificado
+•  Mensagem não lida
+•  Somente leitura
+•  Participante sem acesso
+Navegação
+•  Participantes abrem ADV 27
+•  Dados abrem ADV 08
+•  Documentos abrem ADV 10
+
+ADV 33
+Andamentos manuais do processo
+Perfil
+Advogado
+Objetivo
+Registrar atualizações processuais que poderão ser consultadas pelo cliente e pela IA.
+Pré-condições
+Processo existente e advogado autorizado.
+Elementos e informações exibidas
+•  Linha do tempo por data
+•  Título e descrição da atualização
+•  Responsável pelo registro
+•  Documento relacionado quando existir
+•  Indicação Visível ao cliente ou Somente equipe
+Requisitos funcionais
+ADV 33.01  Adicionar atualização
+ADV 33.02  Editar informação permitida
+ADV 33.03  Relacionar documento
+ADV 33.04  Definir visibilidade
+ADV 33.05  Publicar para o cliente
+ADV 33.06  Consultar histórico de alterações
+Regras de negócio e restrições
+•  As atualizações são manuais nesta etapa do produto
+•  A IA só pode tratar uma atualização como fonte após ela ser salva e autorizada
+•  Alterações mantêm autoria, data e histórico
+•  Informação interna não aparece ao cliente nem ao assistente particular
+Estados da página
+•  Sem andamentos
+•  Rascunho
+•  Publicado ao cliente
+•  Somente equipe
+•  Editado
+•  Falha ao salvar
+Navegação
+•  Processo abre ADV 08
+•  Documento abre ADV 13
+•  Conversa abre ADV 06
+
+Requisitos do perfil do cliente
+As páginas deste perfil priorizam clareza, consulta, envio controlado de documentos e comunicação no contexto de cada processo.
+
+CLI 01
+Acesso e recuperação de conta
+Perfil
+Cliente
+Objetivo
+Entrar, criar conta e recuperar o acesso.
+Pré-condições
+Usuário possui e-mail próprio ou chegou por convite.
+Elementos e informações exibidas
+•  E-mail e senha
+•  Entrar, Criar conta e Esqueci minha senha
+•  Confirmação de e-mail
+•  Referência ao convite quando o acesso começou por ele
+Requisitos funcionais
+CLI 01.01  Autenticar e abrir Processos
+CLI 01.02  Criar conta sem exigir OAB ou cobrança
+CLI 01.03  Recuperar senha
+CLI 01.04  Retomar o detalhe do convite após autenticação
+CLI 01.05  Manter conta mesmo sem processo ativo
+Regras de negócio e restrições
+•  Criar conta não aceita automaticamente um convite
+•  O e-mail da conta deve corresponder ao e-mail convidado
+•  Cliente não compra plano nesta página
+Estados da página
+•  Credenciais inválidas
+•  E-mail não confirmado
+•  Conta criada
+•  Sem conexão
+•  Convite para outro e-mail
+Navegação
+•  Sucesso abre CLI 02 ou CLI 04
+•  Recuperação retorna para esta página
+
+CLI 02
+Processos
+Perfil
+Cliente
+Objetivo
+Encontrar um processo e continuar o atendimento.
+Pré-condições
+Cliente autenticado.
+Elementos e informações exibidas
+•  Título Processos e foto do cliente
+•  Busca por título, área, número ou advogado
+•  Filtros Em andamento e Concluídos
+•  Acesso a Convites com contador
+•  Título, advogado, prévia, data e não lidas
+Requisitos funcionais
+CLI 02.01  Pesquisar e filtrar
+CLI 02.02  Abrir conversa
+CLI 02.03  Abrir convites
+CLI 02.04  Abrir perfil
+CLI 02.05  Consultar processos concluídos
+CLI 02.06  Manter busca e posição ao retornar
+Regras de negócio e restrições
+•  Lista ordenada pela última interação
+•  Cliente não cria processo
+•  Processo concluído fica somente para consulta
+•  Outro advogado ativo não libera processo suspenso ou concluído
+Estados da página
+•  Nenhum processo
+•  Somente concluídos
+•  Busca sem resultado
+•  Processo suspenso
+•  Falha de carregamento
+Navegação
+•  Processo abre CLI 05
+•  Convites abre CLI 03
+•  Foto abre CLI 15
+
+CLI 03
+Lista de convites
+Perfil
+Cliente
+Objetivo
+Consultar solicitações de vínculo recebidas.
+Pré-condições
+Cliente autenticado.
+Elementos e informações exibidas
+•  Advogado, escritório, processo, situação e validade
+•  Filtros Pendentes e Histórico
+•  Busca por advogado ou processo
+Requisitos funcionais
+CLI 03.01  Abrir detalhe
+CLI 03.02  Consultar convites aceitos, recusados, cancelados e expirados
+CLI 03.03  Atualizar a lista
+CLI 03.04  Voltar sem alterar o convite
+Regras de negócio e restrições
+•  Convite expira em 30 dias
+•  Expirado não vira processo concluído
+•  Cliente não reativa convite; precisa receber outro
+Estados da página
+•  Nenhum convite
+•  Pendente
+•  Expirado
+•  Aceito
+•  Recusado
+•  Cancelado
+Navegação
+•  Convite abre CLI 04
+•  Voltar retorna a CLI 02
+
+CLI 04
+Detalhes do convite
+Perfil
+Cliente
+Objetivo
+Permitir que o cliente confira o vínculo antes de aceitar ou recusar.
+Pré-condições
+Convite selecionado.
+Elementos e informações exibidas
+•  Nome, foto, escritório e OAB do advogado
+•  Título, área e número do processo quando informado
+•  E-mail convidado e validade
+•  Ações Aceitar e Recusar
+Requisitos funcionais
+CLI 04.01  Aceitar e liberar o processo
+CLI 04.02  Recusar após confirmação
+CLI 04.03  Abrir perfil profissional quando permitido
+CLI 04.04  Orientar troca de conta quando o e-mail não corresponder
+Regras de negócio e restrições
+•  Aceitar não compartilha todos os documentos pessoais
+•  Recusa encerra apenas aquela solicitação
+•  Convite expirado exige novo envio do advogado
+•  Selo de OAB depende de verificação real
+Estados da página
+•  Pendente
+•  Aceito
+•  Recusado
+•  Expirado
+•  Cancelado
+•  Outro e-mail
+Navegação
+•  Aceitar oferece Abrir conversa em CLI 05
+•  Advogado abre CLI 07
+
+CLI 05
+Conversa do processo
+Perfil
+Cliente
+Objetivo
+Conversar com a IA e com os advogados participantes dentro de um processo.
+Pré-condições
+Processo aceito e acesso habilitado, ou histórico disponível para consulta.
+Elementos e informações exibidas
+•  Cabeçalho com processo, participantes e detalhes
+•  Mensagens identificadas como Cliente, Assistente IA ou advogado nominal
+•  Texto, áudio, imagens, vídeos e PDFs
+•  Campo de mensagem, anexo e envio
+•  Estado Assistente ativo ou Atendimento com profissional identificado
+Requisitos funcionais
+CLI 05.01  Enviar texto e anexos
+CLI 05.02  Reproduzir mídia e abrir documentos
+CLI 05.03  Continuar escrevendo enquanto aguarda o advogado
+CLI 05.04  Abrir detalhes e documentos
+CLI 05.05  Preservar rascunho ao navegar
+CLI 05.06  Consultar histórico concluído
+Regras de negócio e restrições
+•  A IA não envia aviso automático ao chamar os advogados
+•  Todos os advogados participantes recebem notificação quando a pergunta exige avaliação profissional
+•  O profissional que assumir fica identificado
+•  IA pausa durante atendimento humano
+•  Não mostrar cronômetro nem promessa de resposta
+•  Processo concluído ou cancelado não possui compositor
+•  Não existem chamadas de voz ou vídeo
+Estados da página
+•  IA ativa
+•  Aguardando resposta humana sem banner
+•  Atendimento humano
+•  Mensagem enviando, entregue ou falhou
+•  Anexo processando
+•  Somente consulta
+Navegação
+•  Detalhes abre CLI 06
+•  Anexo abre CLI 11
+•  Voltar retorna a CLI 02
+
+CLI 06
+Detalhes do processo
+Perfil
+Cliente
+Objetivo
+Consultar as informações principais e acessar conversa, documentos e responsável.
+Pré-condições
+Processo selecionado.
+Elementos e informações exibidas
+•  Título, área, número e situação
+•  Advogados responsáveis e demais participantes autorizados
+•  Andamentos visíveis ao cliente
+•  Estado de acesso às ferramentas
+•  Ações Abrir conversa, Andamentos, Documentos e Perfis
+Requisitos funcionais
+CLI 06.01  Copiar número
+CLI 06.02  Abrir conversa
+CLI 06.03  Consultar andamentos manuais publicados
+CLI 06.04  Abrir documentos do processo
+CLI 06.05  Abrir perfil dos responsáveis
+Regras de negócio e restrições
+•  Cliente não edita nem conclui o processo
+•  Não mostrar prazo, audiência ou atualização sem fonte definida
+•  Situação processual e disponibilidade das ferramentas são estados diferentes
+Estados da página
+•  Ativo
+•  Concluído
+•  Acesso suspenso
+•  Número não informado
+Navegação
+•  Conversa abre CLI 05
+•  Documentos abre CLI 09
+•  Responsável abre CLI 07
+
+CLI 07
+Perfil do advogado
+Perfil
+Cliente
+Objetivo
+Identificar o profissional responsável pelo processo.
+Pré-condições
+Acesso a partir de processo ou convite.
+Elementos e informações exibidas
+•  Foto, nome completo, escritório, OAB, telefone e e-mail
+•  Situação de verificação profissional quando confirmada
+Requisitos funcionais
+CLI 07.01  Copiar telefone e e-mail
+CLI 07.02  Abrir aplicativo externo de telefone ou e-mail quando permitido
+CLI 07.03  Voltar ao processo ou convite
+Regras de negócio e restrições
+•  A página não oferece chamadas dentro do aplicativo
+•  Não permite explorar outros clientes ou processos
+•  Verificação só aparece se concluída
+Estados da página
+•  Perfil completo
+•  Informação não fornecida
+•  OAB verificada ou sem selo
+Navegação
+•  Voltar mantém a origem de navegação
+
+CLI 08
+Documentos
+Perfil
+Cliente
+Objetivo
+Escolher entre documentos pessoais e documentos de um processo.
+Pré-condições
+Cliente autenticado.
+Elementos e informações exibidas
+•  Documentos pessoais
+•  Lista de processos com advogado e situação
+•  Busca
+•  Solicitações de documentos pendentes
+•  Ação Enviar documento
+Requisitos funcionais
+CLI 08.01  Abrir documentos pessoais
+CLI 08.02  Abrir categorias de um processo
+CLI 08.03  Responder a solicitação de documento
+CLI 08.04  Iniciar envio escolhendo destino
+CLI 08.05  Consultar processos concluídos
+Regras de negócio e restrições
+•  Upload exige processo habilitado
+•  Conta não funciona como armazenamento pessoal livre
+•  Novo advogado só vê arquivos enviados ao processo dele
+•  Concluído mantém abertura e download
+Estados da página
+•  Sem documentos
+•  Sem processo ativo
+•  Solicitação pendente
+•  Upload indisponível
+•  Falha de carregamento
+Navegação
+•  Processo abre CLI 09
+•  Enviar abre CLI 16
+•  Solicitação abre CLI 16 com destino preenchido
+
+CLI 09
+Categorias de documentos
+Perfil
+Cliente
+Objetivo
+Navegar pelos tipos de arquivo de um processo.
+Pré-condições
+Processo ou documentos pessoais selecionados.
+Elementos e informações exibidas
+•  Contexto do processo e advogado
+•  Categorias como Contratos, Petições, Recursos e Comprovantes
+•  Quantidade de arquivos
+•  Busca
+Requisitos funcionais
+CLI 09.01  Abrir categoria
+CLI 09.02  Pesquisar
+CLI 09.03  Iniciar envio para o processo
+CLI 09.04  Voltar para a lista de documentos
+Regras de negócio e restrições
+•  Categorias exibem somente arquivos acessíveis ao cliente
+•  Documentos pessoais não liberam a biblioteca inteira ao advogado
+•  Falha de classificação usa Organização pendente
+Estados da página
+•  Categoria vazia
+•  Classificação pendente
+•  Sem resultado
+•  Processo concluído em consulta
+Navegação
+•  Categoria abre CLI 10
+•  Enviar abre CLI 16
+
+CLI 10
+Lista de arquivos
+Perfil
+Cliente
+Objetivo
+Encontrar e agir sobre documentos da categoria selecionada.
+Pré-condições
+Categoria selecionada.
+Elementos e informações exibidas
+•  Nome, tipo, data da versão atual e tamanho
+•  Busca por nome
+•  Menu de ações por documento
+•  Situação de solicitação de exclusão quando existir
+Requisitos funcionais
+CLI 10.01  Abrir e baixar
+CLI 10.02  Enviar para outro processo
+CLI 10.03  Enviar nova versão
+CLI 10.04  Solicitar exclusão
+CLI 10.05  Adicionar novo documento quando habilitado
+Regras de negócio e restrições
+•  Cliente não renomeia, move nem exclui diretamente
+•  Enviar para outro processo compartilha apenas o arquivo escolhido
+•  Nova versão preserva histórico do advogado
+•  Ações de envio dependem de destino habilitado
+Estados da página
+•  Lista preenchida
+•  Categoria vazia
+•  Busca sem resultado
+•  Processando
+•  Organização pendente
+•  Solicitação de exclusão enviada
+Navegação
+•  Abrir abre CLI 11
+•  Compartilhar abre CLI 17
+•  Nova versão abre CLI 18
+•  Exclusão abre CLI 19
+
+CLI 11
+Visualizador de documento
+Perfil
+Cliente
+Objetivo
+Consultar o conteúdo e as ações permitidas do arquivo.
+Pré-condições
+Cliente possui acesso ao documento.
+Elementos e informações exibidas
+•  Nome, contexto, versão e data
+•  Prévia compatível com o formato
+•  Páginas e zoom para PDF
+•  Reprodução de áudio ou vídeo
+•  Baixar e menu de ações
+Requisitos funcionais
+CLI 11.01  Navegar e ampliar
+CLI 11.02  Baixar
+CLI 11.03  Enviar para outro processo
+CLI 11.04  Enviar nova versão quando permitido
+CLI 11.05  Solicitar exclusão
+CLI 11.06  Voltar ao chat ou à lista de origem
+Regras de negócio e restrições
+•  Cliente vê a versão atual, não o histórico interno
+•  Formato não suportado oferece download
+•  Sem processo ativo continuam abrir e baixar
+•  Acesso é verificado em cada abertura e download
+Estados da página
+•  Carregando
+•  Prévia disponível
+•  Formato não suportado
+•  Arquivo indisponível
+•  Acesso revogado
+Navegação
+•  Voltar preserva a origem
+•  Ações abrem CLI 17, CLI 18 ou CLI 19
+
+CLI 12
+Assistente particular
+Perfil
+Cliente
+Objetivo
+Esclarecer dúvidas gerais ou de um processo em uma conversa privada.
+Pré-condições
+Cliente possui ao menos um vínculo habilitado.
+Elementos e informações exibidas
+•  Histórico e Nova conversa
+•  Seletor Perguntas gerais ou processo
+•  Sugestões curtas
+•  Campo de pergunta
+•  Mensagens e estado de geração
+•  Ações Interromper e Encaminhar ao advogado
+Requisitos funcionais
+CLI 12.01  Perguntar sobre termos e funcionamento geral
+CLI 12.02  Pesquisar legislação dentro do escopo aprovado
+CLI 12.03  Selecionar processo para consultar dados do caso
+CLI 12.04  Continuar conversa
+CLI 12.05  Interromper resposta
+CLI 12.06  Encaminhar pergunta confirmada
+CLI 12.07  Abrir histórico
+Regras de negócio e restrições
+•  Histórico particular não aparece ao advogado
+•  Contextos de processos diferentes não se misturam
+•  A IA não acessa documentos reservados ao advogado
+•  Sem vínculo habilitado a ferramenta fica bloqueada
+•  Fontes não são bloco obrigatório na interface, mas afirmações documentais precisam de suporte
+Estados da página
+•  Tela vazia
+•  Gerando
+•  Sem base suficiente
+•  Erro
+•  Contexto concluído
+•  Ferramenta indisponível
+Navegação
+•  Histórico abre CLI 13
+•  Encaminhar abre CLI 20
+•  Arquivo citado abre CLI 11
+
+CLI 13
+Histórico do assistente
+Perfil
+Cliente
+Objetivo
+Localizar e reabrir conversas particulares anteriores.
+Pré-condições
+Assistente habilitado.
+Elementos e informações exibidas
+•  Busca por título ou tema
+•  Título, contexto e data
+•  Ordenação mais recente primeiro
+•  Ação Nova conversa
+Requisitos funcionais
+CLI 13.01  Pesquisar
+CLI 13.02  Abrir mantendo contexto original
+CLI 13.03  Iniciar nova conversa
+CLI 13.04  Voltar ao assistente
+Regras de negócio e restrições
+•  Histórico não integra o chat profissional
+•  Reabrir usa permissões atuais
+•  Sem vínculo habilitado, o histórico permanece bloqueado até decisão diferente
+Estados da página
+•  Histórico vazio
+•  Busca sem resultado
+•  Contexto indisponível
+•  Erro de carregamento
+Navegação
+•  Conversa abre CLI 12
+
+CLI 14
+Notificações
+Perfil
+Cliente
+Objetivo
+Reunir eventos importantes e abrir o conteúdo correspondente.
+Pré-condições
+Cliente autenticado.
+Elementos e informações exibidas
+•  Convites
+•  Mensagens novas
+•  Documentos solicitados ou liberados
+•  Processos concluídos
+•  Data, leitura e ação Abrir
+Requisitos funcionais
+CLI 14.01  Abrir o destino correto
+CLI 14.02  Marcar como lida
+CLI 14.03  Atualizar lista
+CLI 14.04  Respeitar categorias desativadas pelo usuário
+Regras de negócio e restrições
+•  Notificação lida não resolve atendimento
+•  Mensagem de IA não pode ser rotulada como mensagem humana
+•  Se o estado mudou, a página de destino explica a situação atual
+Estados da página
+•  Nova e lida
+•  Lista vazia
+•  Destino expirado ou indisponível
+•  Falha de carregamento
+Navegação
+•  Convite abre CLI 04
+•  Mensagem abre CLI 05
+•  Documento abre CLI 11
+•  Concluído abre CLI 05 em consulta
+
+CLI 15
+Perfil e configurações
+Perfil
+Cliente
+Objetivo
+Gerenciar conta, segurança, notificações, privacidade e suporte.
+Pré-condições
+Cliente autenticado.
+Elementos e informações exibidas
+•  Foto, nome e e-mail
+•  Dados pessoais
+•  Segurança
+•  Notificações
+•  Privacidade e uso da IA
+•  Ajuda e suporte
+•  Solicitar cópia dos dados
+•  Solicitar exclusão da conta
+•  Sair
+Requisitos funcionais
+CLI 15.01  Editar dados permitidos
+CLI 15.02  Alterar senha e segurança
+CLI 15.03  Ativar ou desativar categorias de notificações
+CLI 15.04  Consultar explicação sobre IA e dados
+CLI 15.05  Abrir suporte
+CLI 15.06  Solicitar cópia ou exclusão conforme processo administrativo
+CLI 15.07  Sair
+Regras de negócio e restrições
+•  Perfil e suporte continuam acessíveis sem processo ativo
+•  Pedidos de dados não prometem entrega imediata até a política definir prazo
+•  Suporte não recebe automaticamente o histórico particular do assistente
+•  Mudanças sensíveis exigem reautenticação
+Estados da página
+•  Salvando
+•  Alteração confirmada
+•  Falha ao salvar
+•  Pedido em análise
+•  Sem conexão
+Navegação
+•  Foto em CLI 02 abre esta página
+•  Sair retorna a CLI 01
+
+CLI 16
+Enviar documento
+Perfil
+Cliente
+Objetivo
+Enviar um novo arquivo ao processo correto.
+Pré-condições
+Existe processo habilitado para receber arquivos.
+Elementos e informações exibidas
+•  Seletor de arquivo
+•  Processo, advogado e destino
+•  Prévia do nome, tipo e tamanho
+•  Progresso e confirmação
+Requisitos funcionais
+CLI 16.01  Selecionar PDF, imagem, vídeo ou áudio permitido
+CLI 16.02  Escolher processo quando o fluxo começou em Documentos
+CLI 16.03  Usar destino preenchido quando começou no chat
+CLI 16.04  Confirmar ou cancelar
+CLI 16.05  Tentar novamente após falha
+Regras de negócio e restrições
+•  Destino deve ser visível antes da confirmação
+•  Arquivo enviado no chat é salvo e classificado automaticamente
+•  Falha de classificação não representa perda do arquivo
+•  Sem destino habilitado, o envio é bloqueado com explicação
+Estados da página
+•  Selecionando
+•  Preparando
+•  Enviando
+•  Concluído
+•  Falha
+•  Tipo ou tamanho não permitido
+Navegação
+•  Sucesso retorna ao chat ou documentos
+•  Cancelar retorna sem envio
+
+CLI 17
+Enviar documento salvo a outro processo
+Perfil
+Cliente
+Objetivo
+Compartilhar um arquivo existente com um novo advogado ou processo.
+Pré-condições
+Documento acessível e processo de destino habilitado.
+Elementos e informações exibidas
+•  Resumo do arquivo
+•  Seletor de processo
+•  Nome do advogado de destino
+•  Confirmação do compartilhamento
+Requisitos funcionais
+CLI 17.01  Selecionar destino
+CLI 17.02  Confirmar o arquivo e responsável
+CLI 17.03  Enviar somente o documento escolhido
+CLI 17.04  Cancelar antes do compartilhamento
+Regras de negócio e restrições
+•  Não compartilhar mensagens, outros documentos ou histórico de versões
+•  Criar cópia vinculada ao novo processo sem sincronização silenciosa futura
+•  Destino concluído ou suspenso não pode receber
+Estados da página
+•  Sem destino disponível
+•  Pronto para confirmar
+•  Enviando
+•  Concluído
+•  Falha
+Navegação
+•  Sucesso oferece Abrir conversa em CLI 05
+
+CLI 18
+Enviar nova versão
+Perfil
+Cliente
+Objetivo
+Atualizar um documento nos casos autorizados.
+Pré-condições
+Documento permite versão do cliente e destino está habilitado.
+Elementos e informações exibidas
+•  Documento atual
+•  Seletor do novo arquivo
+•  Processo e advogado
+•  Prévia e confirmação
+Requisitos funcionais
+CLI 18.01  Selecionar nova versão
+CLI 18.02  Conferir destino
+CLI 18.03  Confirmar atualização
+CLI 18.04  Cancelar
+CLI 18.05  Tentar novamente
+Regras de negócio e restrições
+•  Não oferece editor de arquivo
+•  Versão anterior permanece no histórico do advogado
+•  Anexos antigos não mudam retroativamente
+•  Política definirá quais documentos aceitam versão do cliente
+Estados da página
+•  Preparando
+•  Enviando
+•  Atualizado
+•  Falha
+•  Versão não permitida
+Navegação
+•  Sucesso retorna a CLI 10 ou CLI 11
+
+CLI 19
+Solicitar exclusão de documento
+Perfil
+Cliente
+Objetivo
+Pedir análise para remoção de um arquivo sem excluí-lo diretamente.
+Pré-condições
+Documento acessível.
+Elementos e informações exibidas
+•  Arquivo e contexto
+•  Responsável pela análise
+•  Motivo opcional
+•  Ações Solicitar exclusão e Cancelar
+Requisitos funcionais
+CLI 19.01  Enviar solicitação
+CLI 19.02  Cancelar
+CLI 19.03  Consultar confirmação e situação do pedido
+Regras de negócio e restrições
+•  Arquivo permanece acessível até decisão
+•  Com processo ativo, pedido vai ao advogado responsável
+•  Sem processo ativo, pedido vai ao suporte
+•  Critérios de retenção podem impedir exclusão imediata
+Estados da página
+•  Pronto para enviar
+•  Solicitação enviada
+•  Em análise
+•  Aprovada ou negada quando a política existir
+•  Falha
+Navegação
+•  Retorno para CLI 10 ou CLI 11
+
+CLI 20
+Encaminhar pergunta ao advogado
+Perfil
+Cliente
+Objetivo
+Enviar ao profissional apenas a dúvida escolhida e um resumo confirmado.
+Pré-condições
+Pergunta existente no assistente e processo habilitado.
+Elementos e informações exibidas
+•  Pergunta original
+•  Resumo gerado pela IA
+•  Seletor de processo
+•  Advogado responsável
+•  Aviso de que o histórico particular não será enviado
+Requisitos funcionais
+CLI 20.01  Selecionar destino
+CLI 20.02  Gerar e revisar prévia
+CLI 20.03  Confirmar envio
+CLI 20.04  Voltar sem enviar
+CLI 20.05  Abrir conversa após conclusão
+Regras de negócio e restrições
+•  Cliente confirma antes do envio
+•  Não encaminhar automaticamente
+•  Não enviar o histórico completo
+•  Processo concluído ou suspenso não é destino válido
+•  Conteúdo aparece no chat como pergunta encaminhada com resumo da IA
+Estados da página
+•  Gerando resumo
+•  Pronto para confirmar
+•  Sem processo válido
+•  Enviando
+•  Concluído
+•  Falha
+Navegação
+•  Sucesso oferece Abrir conversa em CLI 05
+
+CLI 21
+Cadastro e primeiro acesso
+Perfil
+Cliente
+Objetivo
+Criar a conta e explicar como ela se relaciona aos convites dos advogados.
+Pré-condições
+Pessoa ainda não possui conta.
+Elementos e informações exibidas
+•  Nome completo, fotografia opcional, telefone, e-mail e senha
+•  Aceite dos termos e da política
+•  Explicação de que o acesso depende de processo vinculado
+•  Indicador de etapas
+Requisitos funcionais
+CLI 21.01  Validar dados
+CLI 21.02  Criar conta
+CLI 21.03  Enviar verificação de e-mail
+CLI 21.04  Retomar convite compatível
+CLI 21.05  Continuar para completar perfil
+Regras de negócio e restrições
+•  Conta pode existir sem processo ativo
+•  Cadastro não aceita convite automaticamente
+•  O e-mail deve corresponder ao endereço convidado
+Estados da página
+•  Preenchimento
+•  E-mail já utilizado
+•  Cadastro criado
+•  Falha ao salvar
+Navegação
+•  Continuar abre CLI 22
+•  Entrar abre CLI 01
+
+CLI 22
+Verificação de e-mail
+Perfil
+Cliente
+Objetivo
+Confirmar o endereço usado na conta e nos convites.
+Pré-condições
+Código ou link enviado.
+Elementos e informações exibidas
+•  E-mail parcialmente oculto
+•  Código de confirmação
+•  Ações Confirmar, Reenviar e Alterar e-mail
+•  Tempo para novo envio
+Requisitos funcionais
+CLI 22.01  Confirmar código
+CLI 22.02  Reenviar
+CLI 22.03  Trocar e-mail
+CLI 22.04  Retomar convite após confirmação
+Regras de negócio e restrições
+•  Código expira e possui limite de tentativas
+•  Troca de e-mail pode invalidar convite destinado ao endereço anterior
+Estados da página
+•  Aguardando
+•  Inválido
+•  Expirado
+•  Confirmado
+•  Limite temporário
+Navegação
+•  Sucesso abre CLI 03 ou CLI 02
+
+CLI 23
+Preferências de notificações
+Perfil
+Cliente
+Objetivo
+Escolher quais eventos podem gerar aviso no celular ou no aplicativo.
+Pré-condições
+Cliente autenticado.
+Elementos e informações exibidas
+•  Categorias Convites, Mensagens, Documentos e Processo concluído
+•  Canais push e aviso interno quando disponíveis
+•  Estado ativado ou desativado
+Requisitos funcionais
+CLI 23.01  Ativar ou desativar categoria
+CLI 23.02  Salvar preferências
+CLI 23.03  Restaurar padrão
+CLI 23.04  Solicitar permissão do sistema operacional
+Regras de negócio e restrições
+•  Preferência não elimina eventos da central
+•  Avisos obrigatórios de segurança não podem ser desativados
+•  Bloqueio no sistema operacional precisa ser explicado
+Estados da página
+•  Salvo
+•  Alteração pendente
+•  Permissão bloqueada
+•  Falha ao salvar
+Navegação
+•  Retorna a CLI 15
+•  Configuração do sistema abre instrução apropriada
+
+CLI 24
+Segurança da conta
+Perfil
+Cliente
+Objetivo
+Alterar credenciais e controlar os dispositivos conectados.
+Pré-condições
+Cliente autenticado.
+Elementos e informações exibidas
+•  Alteração de senha
+•  Sessões e dispositivos
+•  Último acesso
+•  Autenticação adicional quando adotada
+Requisitos funcionais
+CLI 24.01  Alterar senha
+CLI 24.02  Revogar sessão
+CLI 24.03  Encerrar outras sessões
+CLI 24.04  Ativar proteção adicional
+CLI 24.05  Reautenticar
+Regras de negócio e restrições
+•  Ações sensíveis exigem senha ou fator adicional
+•  Mudanças geram notificação de segurança
+Estados da página
+•  Protegida
+•  Senha fraca
+•  Código inválido
+•  Sessão revogada
+•  Atividade suspeita
+Navegação
+•  Retorna a CLI 15
+•  Recuperação abre CLI 01
+
+CLI 25
+Privacidade e uso de dados
+Perfil
+Cliente
+Objetivo
+Explicar o tratamento dos dados e permitir escolhas opcionais.
+Pré-condições
+Cliente autenticado.
+Elementos e informações exibidas
+•  Resumo do uso de dados
+•  Explicação do assistente particular e do encaminhamento
+•  Preferências opcionais
+•  Links para políticas
+•  Ações de dados da conta
+Requisitos funcionais
+CLI 25.01  Consultar explicações
+CLI 25.02  Alterar preferências opcionais
+CLI 25.03  Abrir política de privacidade
+CLI 25.04  Iniciar exportação ou exclusão
+Regras de negócio e restrições
+•  Histórico particular não é compartilhado sem confirmação
+•  Preferência não revoga tratamentos necessários ao serviço
+•  Mudança deve ser registrada
+Estados da página
+•  Carregando
+•  Preferências salvas
+•  Falha
+•  Política atualizada
+Navegação
+•  Dados da conta abrem CLI 26
+•  Política abre SYS 03
+
+CLI 26
+Exportação e exclusão da conta
+Perfil
+Cliente
+Objetivo
+Registrar pedidos relacionados à cópia ou remoção dos dados pessoais.
+Pré-condições
+Cliente autenticado e reautenticado.
+Elementos e informações exibidas
+•  Opções Exportar dados e Solicitar exclusão
+•  Consequências para processos ativos e documentos
+•  Prazo estimado
+•  Histórico e situação dos pedidos
+Requisitos funcionais
+CLI 26.01  Solicitar exportação
+CLI 26.02  Confirmar identidade
+CLI 26.03  Solicitar exclusão
+CLI 26.04  Cancelar pedido permitido
+CLI 26.05  Baixar pacote quando pronto
+Regras de negócio e restrições
+•  Processo ativo pode impedir exclusão imediata ou exigir análise
+•  Retenções legais precisam ser explicadas
+•  Novo advogado não recebe dados sem envio do cliente
+Estados da página
+•  Sem pedido
+•  Validando
+•  Processando
+•  Disponível para baixar
+•  Concluído
+•  Impedido com explicação
+Navegação
+•  Retorna a CLI 25
+•  Suporte abre CLI 27
+
+CLI 27
+Ajuda e suporte
+Perfil
+Cliente
+Objetivo
+Orientar o uso do aplicativo e registrar problemas técnicos.
+Pré-condições
+Cliente autenticado ou em acesso permitido.
+Elementos e informações exibidas
+•  Busca de ajuda
+•  Perguntas frequentes
+•  Categorias
+•  Lista de chamados
+•  Novo chamado
+Requisitos funcionais
+CLI 27.01  Pesquisar artigos
+CLI 27.02  Criar chamado
+CLI 27.03  Anexar evidência técnica
+CLI 27.04  Consultar e responder
+CLI 27.05  Encerrar atendimento
+Regras de negócio e restrições
+•  Suporte não substitui orientação jurídica
+•  Não prometer acesso a conversa privada do assistente
+•  Cada chamado possui protocolo
+Estados da página
+•  Sem chamados
+•  Aberto
+•  Aguardando cliente
+•  Em análise
+•  Resolvido
+•  Falha
+Navegação
+•  Voltar retorna à origem
+•  Políticas abrem SYS 02 ou SYS 03
+
+CLI 28
+Conta sem processo ativo
+Perfil
+Cliente
+Objetivo
+Explicar o acesso limitado quando não existe vínculo profissional ativo.
+Pré-condições
+Cliente não possui processo em andamento.
+Elementos e informações exibidas
+•  Mensagem de acesso limitado
+•  Processos concluídos disponíveis para consulta
+•  Convites pendentes
+•  Documentos próprios preservados conforme política
+•  Ações Ver convites e Ver concluídos
+Requisitos funcionais
+CLI 28.01  Consultar processos antigos
+CLI 28.02  Aceitar novo convite
+CLI 28.03  Acessar documentos permitidos
+CLI 28.04  Abrir perfil e suporte
+Regras de negócio e restrições
+•  Assistente processual e novas mensagens ficam indisponíveis
+•  Dados não são apagados apenas pela ausência de vínculo
+•  A tela não oferece contratação direta de IA
+Estados da página
+•  Sem vínculo
+•  Convite pendente
+•  Somente concluídos
+•  Conta suspensa
+Navegação
+•  Convites abrem CLI 03
+•  Concluídos abrem CLI 02
+•  Suporte abre CLI 27
+
+CLI 29
+Histórico de solicitações sobre documentos
+Perfil
+Cliente
+Objetivo
+Acompanhar pedidos de exclusão ou correção relacionados aos próprios arquivos.
+Pré-condições
+Cliente realizou uma solicitação.
+Elementos e informações exibidas
+•  Documento e processo
+•  Tipo da solicitação
+•  Data e protocolo
+•  Estado e resposta do advogado ou suporte
+Requisitos funcionais
+CLI 29.01  Consultar detalhes
+CLI 29.02  Cancelar enquanto permitido
+CLI 29.03  Enviar complemento
+CLI 29.04  Abrir documento quando disponível
+CLI 29.05  Criar nova solicitação
+Regras de negócio e restrições
+•  Cliente não exclui diretamente o arquivo do sistema
+•  Solicitação não altera documento antes da decisão
+•  Histórico permanece auditável
+Estados da página
+•  Pendente
+•  Em análise
+•  Aprovada
+•  Recusada com justificativa
+•  Cancelada
+Navegação
+•  Documento abre CLI 11
+•  Nova solicitação abre CLI 19
+
+Requisitos das páginas gerais do sistema
+Estas páginas tratam inicialização, políticas, transparência, conectividade, sessão e indisponibilidades que afetam os dois perfis.
+
+SYS 01
+Abertura e direcionamento inicial
+Perfil
+Sistema
+Objetivo
+Inicializar o aplicativo e levar o usuário ao destino correto.
+Pré-condições
+Aplicativo aberto.
+Elementos e informações exibidas
+•  Marca do aplicativo
+•  Indicador discreto de carregamento
+•  Mensagem somente quando houver demora
+Requisitos funcionais
+SYS 01.01  Verificar sessão
+SYS 01.02  Carregar perfil e permissões
+SYS 01.03  Identificar convite ou notificação de origem
+SYS 01.04  Direcionar para autenticação ou página correta
+Regras de negócio e restrições
+•  Não exibir dados jurídicos antes de validar a sessão
+•  Falha deve oferecer nova tentativa
+•  Atualização obrigatória tem prioridade sobre o destino
+Estados da página
+•  Carregando
+•  Sem sessão
+•  Sessão válida
+•  Sem conexão
+•  Atualização obrigatória
+Navegação
+•  Advogado abre ADV 02
+•  Cliente abre CLI 02 ou CLI 28
+•  Sem sessão abre ADV 01 ou CLI 01
+
+SYS 02
+Termos de uso
+Perfil
+Sistema
+Objetivo
+Apresentar a versão vigente dos termos e registrar o aceite quando necessário.
+Pré-condições
+Documento jurídico publicado.
+Elementos e informações exibidas
+•  Título, versão e data de vigência
+•  Conteúdo pesquisável
+•  Ações Aceitar, Recusar e Baixar quando aplicáveis
+Requisitos funcionais
+SYS 02.01  Ler e pesquisar
+SYS 02.02  Baixar cópia
+SYS 02.03  Registrar aceite
+SYS 02.04  Recusar e sair quando o aceite for obrigatório
+Regras de negócio e restrições
+•  Aceite deve registrar usuário, versão, data e contexto
+•  Mudança material pode exigir novo aceite
+Estados da página
+•  Visualização
+•  Aceite necessário
+•  Aceito
+•  Falha ao carregar
+Navegação
+•  Aceitar retorna ao fluxo de origem
+•  Recusar encerra o fluxo protegido
+
+SYS 03
+Política de privacidade
+Perfil
+Sistema
+Objetivo
+Explicar de forma acessível como os dados pessoais são tratados.
+Pré-condições
+Política publicada.
+Elementos e informações exibidas
+•  Versão e vigência
+•  Finalidades, bases, compartilhamentos, retenção e direitos
+•  Canais de privacidade
+•  Busca e download
+Requisitos funcionais
+SYS 03.01  Pesquisar conteúdo
+SYS 03.02  Baixar cópia
+SYS 03.03  Abrir canal de privacidade
+SYS 03.04  Voltar para a página anterior
+Regras de negócio e restrições
+•  Conteúdo deve corresponder à versão vigente
+•  Política pode ser consultada sem autenticação
+Estados da página
+•  Carregando
+•  Disponível
+•  Falha
+•  Versão atualizada
+Navegação
+•  Volta à origem
+•  Solicitação autenticada abre ADV 29 ou CLI 26
+
+SYS 04
+Consentimento e transparência da IA
+Perfil
+Sistema
+Objetivo
+Explicar onde a IA atua, seus limites e as escolhas do usuário.
+Pré-condições
+Usuário acessa função que utiliza IA.
+Elementos e informações exibidas
+•  Funções realizadas pela IA
+•  Identificação das mensagens automáticas
+•  Limites, riscos e encaminhamento humano
+•  Uso de documentos e registro de interações
+Requisitos funcionais
+SYS 04.01  Confirmar ciência
+SYS 04.02  Abrir detalhes de privacidade
+SYS 04.03  Continuar ou cancelar a função
+SYS 04.04  Revisar consentimento quando aplicável
+Regras de negócio e restrições
+•  Consentimento não substitui outra base legal necessária
+•  IA não pode ser apresentada como advogado
+•  Mudança material exige nova comunicação
+Estados da página
+•  Primeira ciência
+•  Versão atualizada
+•  Aceito
+•  Recusado
+Navegação
+•  Continuar retorna à função
+•  Privacidade abre SYS 03
+
+SYS 05
+Sessão expirada
+Perfil
+Sistema
+Objetivo
+Proteger dados quando a autenticação deixar de ser válida.
+Pré-condições
+Token expirado, revogado ou inválido.
+Elementos e informações exibidas
+•  Mensagem de sessão encerrada
+•  Ações Entrar novamente e Cancelar
+•  Aviso sobre rascunho quando recuperável
+Requisitos funcionais
+SYS 05.01  Limpar dados sensíveis da tela
+SYS 05.02  Preservar rascunho local seguro quando permitido
+SYS 05.03  Autenticar novamente
+SYS 05.04  Retomar o destino autorizado
+Regras de negócio e restrições
+•  Nenhum conteúdo protegido permanece visível
+•  Retomada sempre revalida permissões
+Estados da página
+•  Expirada
+•  Reautenticando
+•  Retomada
+•  Falha
+Navegação
+•  Entrar abre ADV 01 ou CLI 01
+
+SYS 06
+Sem conexão
+Perfil
+Sistema
+Objetivo
+Informar indisponibilidade de rede e preservar ações não concluídas.
+Pré-condições
+Aplicativo sem acesso ao serviço.
+Elementos e informações exibidas
+•  Estado da conexão
+•  Ação Tentar novamente
+•  Últimos dados locais permitidos
+•  Itens aguardando envio
+Requisitos funcionais
+SYS 06.01  Tentar reconectar
+SYS 06.02  Manter rascunhos
+SYS 06.03  Reenviar itens seguros após confirmação
+SYS 06.04  Cancelar upload pendente
+Regras de negócio e restrições
+•  Não afirmar que mensagem foi entregue sem confirmação do servidor
+•  Documentos protegidos offline seguem política específica
+Estados da página
+•  Offline
+•  Reconectando
+•  Conectado
+•  Envio pendente
+•  Falha persistente
+Navegação
+•  Reconexão retorna à página anterior
+
+SYS 07
+Manutenção e indisponibilidade
+Perfil
+Sistema
+Objetivo
+Comunicar interrupção planejada ou falha geral.
+Pré-condições
+Serviço indisponível.
+Elementos e informações exibidas
+•  Motivo resumido quando publicável
+•  Previsão somente quando confirmada
+•  Ação Tentar novamente
+•  Canal de status ou suporte
+Requisitos funcionais
+SYS 07.01  Atualizar estado
+SYS 07.02  Tentar novamente
+SYS 07.03  Abrir canal de suporte
+SYS 07.04  Sair com segurança
+Regras de negócio e restrições
+•  Não inventar previsão
+•  Nenhum dado sensível deve aparecer em cache indevido
+Estados da página
+•  Manutenção programada
+•  Falha geral
+•  Serviço restabelecido
+Navegação
+•  Restabelecimento retorna ao destino original
+
+SYS 08
+Atualização obrigatória
+Perfil
+Sistema
+Objetivo
+Impedir uso de versão incompatível ou insegura.
+Pré-condições
+Versão instalada abaixo do mínimo aceito.
+Elementos e informações exibidas
+•  Motivo resumido
+•  Versão necessária
+•  Ação Atualizar aplicativo
+•  Ajuda quando a loja não abrir
+Requisitos funcionais
+SYS 08.01  Abrir a loja oficial
+SYS 08.02  Verificar novamente a versão
+SYS 08.03  Exibir instruções alternativas
+Regras de negócio e restrições
+•  Não permitir ignorar atualização classificada como obrigatória
+•  Link precisa corresponder à plataforma oficial
+Estados da página
+•  Atualização necessária
+•  Loja indisponível
+•  Versão atualizada
+Navegação
+•  Após atualizar, SYS 01 refaz o direcionamento
+
+SYS 09
+Acesso negado ou conteúdo indisponível
+Perfil
+Sistema
+Objetivo
+Explicar de forma segura por que um destino não pode ser aberto.
+Pré-condições
+Permissão ausente, vínculo encerrado ou recurso removido.
+Elementos e informações exibidas
+•  Mensagem genérica adequada ao motivo
+•  Ações Voltar, Ir para início e Solicitar ajuda
+•  Identificador do incidente quando houver
+Requisitos funcionais
+SYS 09.01  Retornar com segurança
+SYS 09.02  Ir para página inicial
+SYS 09.03  Abrir suporte
+SYS 09.04  Atualizar permissão e tentar novamente
+Regras de negócio e restrições
+•  Não revelar existência de cliente, processo ou documento sem permissão
+•  Motivo detalhado só aparece quando seguro
+Estados da página
+•  Sem permissão
+•  Vínculo encerrado
+•  Conteúdo removido
+•  Link expirado
+•  Erro temporário
+Navegação
+•  Início abre ADV 02 ou CLI 02
+•  Ajuda abre ADV 30 ou CLI 27
+
+Requisitos do painel administrativo
+O painel apoia verificação profissional, suporte, segurança, privacidade e governança da IA. No início, todos os sócios administradores possuem acesso completo por contas individuais e auditadas.
+
+ADM 01
+Acesso administrativo
+Perfil
+Equipe administrativa
+Objetivo
+Autenticar colaboradores autorizados no painel interno.
+Pré-condições
+Colaborador cadastrado e autorizado.
+Elementos e informações exibidas
+•  E-mail corporativo, senha e fator adicional
+•  Ambiente identificado como administrativo
+•  Recuperação controlada
+Requisitos funcionais
+ADM 01.01  Autenticar
+ADM 01.02  Exigir fator adicional
+ADM 01.03  Recuperar acesso por fluxo interno
+ADM 01.04  Bloquear tentativas abusivas
+ADM 01.05  Registrar acesso
+Regras de negócio e restrições
+•  Conta de cliente ou advogado não entra no painel
+•  Privilégio mínimo e autenticação adicional são obrigatórios
+Estados da página
+•  Credenciais inválidas
+•  Fator necessário
+•  Bloqueado
+•  Autenticado
+Navegação
+•  Sucesso abre ADM 02
+
+ADM 02
+Painel operacional
+Perfil
+Equipe administrativa
+Objetivo
+Apresentar filas e indicadores que exigem atuação da operação.
+Pré-condições
+Colaborador autenticado.
+Elementos e informações exibidas
+•  Verificações de OAB pendentes
+•  Chamados abertos
+•  Incidentes e solicitações LGPD
+•  Alertas de segurança e IA
+•  Indicadores sem conteúdo jurídico desnecessário
+Requisitos funcionais
+ADM 02.01  Filtrar por período e situação
+ADM 02.02  Abrir fila correspondente
+ADM 02.03  Atualizar indicadores
+ADM 02.04  Exportar relatório permitido
+Regras de negócio e restrições
+•  Indicadores respeitam o perfil do colaborador
+•  Painel não deve expor documentos de processos por padrão
+Estados da página
+•  Normal
+•  Pendências críticas
+•  Sem dados
+•  Falha de atualização
+Navegação
+•  Filas abrem ADM 03, ADM 09, ADM 12, ADM 14 ou ADM 15
+
+ADM 03
+Fila de verificação da OAB
+Perfil
+Equipe de verificação
+Objetivo
+Organizar os cadastros profissionais que precisam de análise.
+Pré-condições
+Colaborador com permissão de verificação.
+Elementos e informações exibidas
+•  Advogado, inscrição, estado e data
+•  Resultado de consultas permitidas
+•  Prioridade e situação
+•  Filtros e busca
+Requisitos funcionais
+ADM 03.01  Pesquisar e filtrar
+ADM 03.02  Atribuir análise
+ADM 03.03  Abrir cadastro
+ADM 03.04  Marcar possível duplicidade
+ADM 03.05  Atualizar fila
+Regras de negócio e restrições
+•  Fila não decide automaticamente sem regra aprovada
+•  Acesso a documentos de verificação é restrito e auditado
+Estados da página
+•  Pendente
+•  Em análise
+•  Correção solicitada
+•  Aprovado
+•  Rejeitado
+Navegação
+•  Item abre ADM 04
+
+ADM 04
+Análise da verificação profissional
+Perfil
+Equipe de verificação
+Objetivo
+Examinar evidências e registrar decisão sobre o cadastro profissional.
+Pré-condições
+Item aberto da fila.
+Elementos e informações exibidas
+•  Dados pessoais mínimos
+•  OAB e estado
+•  Comprovantes enviados
+•  Consultas e histórico da análise
+•  Campo de decisão e justificativa
+Requisitos funcionais
+ADM 04.01  Validar evidências
+ADM 04.02  Solicitar correção
+ADM 04.03  Aprovar
+ADM 04.04  Rejeitar
+ADM 04.05  Registrar nota interna
+ADM 04.06  Concluir análise
+Regras de negócio e restrições
+•  Toda decisão exige responsável, data e fundamento
+•  Nota interna não é exibida ao usuário
+•  Dados não relacionados não devem ser acessados
+Estados da página
+•  Em análise
+•  Aguardando correção
+•  Aprovado
+•  Rejeitado
+•  Conflito de atualização
+Navegação
+•  Concluir retorna a ADM 03
+•  Advogado recebe ADV 20
+
+ADM 05
+Usuários e contas
+Perfil
+Equipe administrativa
+Objetivo
+Localizar contas de advogados e clientes para suporte e segurança.
+Pré-condições
+Colaborador com permissão de usuários.
+Elementos e informações exibidas
+•  Busca por identificadores permitidos
+•  Tipo de perfil
+•  Situação da conta
+•  Data de criação e último acesso
+•  Sinalizações de segurança
+Requisitos funcionais
+ADM 05.01  Pesquisar e filtrar
+ADM 05.02  Abrir conta
+ADM 05.03  Suspender preventivamente quando autorizado
+ADM 05.04  Iniciar recuperação assistida
+ADM 05.05  Exportar lista limitada
+Regras de negócio e restrições
+•  Busca deve ser registrada
+•  Suspensão exige motivo e permissão
+•  Equipe não pode assumir identidade do usuário
+Estados da página
+•  Ativa
+•  Pendente
+•  Suspensa
+•  Exclusão solicitada
+•  Sem resultado
+Navegação
+•  Conta abre ADM 06
+
+ADM 06
+Detalhes da conta
+Perfil
+Equipe administrativa
+Objetivo
+Consultar estado, vínculos e eventos necessários ao atendimento da conta.
+Pré-condições
+Conta selecionada e permissão adequada.
+Elementos e informações exibidas
+•  Dados cadastrais mínimos
+•  Estado e verificações
+•  Vínculos resumidos
+•  Escritório quando aplicável
+•  Eventos de segurança e solicitações
+Requisitos funcionais
+ADM 06.01  Atualizar estado permitido
+ADM 06.02  Reenviar verificação
+ADM 06.03  Suspender ou reativar com justificativa
+ADM 06.04  Abrir escritório, chamado ou auditoria
+ADM 06.05  Registrar nota interna
+Regras de negócio e restrições
+•  Documentos jurídicos não aparecem por padrão
+•  Ações sensíveis exigem confirmação e auditoria
+Estados da página
+•  Ativa
+•  Suspensa
+•  Em verificação
+•  Exclusão em andamento
+•  Restrita
+Navegação
+•  Administradores abrem ADM 08
+•  Auditoria abre ADM 12
+
+ADM 07
+Processos e vínculos
+Perfil
+Equipe administrativa
+Objetivo
+Investigar problemas de convite e autorização sem atuar no mérito jurídico.
+Pré-condições
+Chamado ou incidente com base autorizada.
+Elementos e informações exibidas
+•  Identificador do processo
+•  Advogado e cliente vinculados
+•  Estado do convite e vínculo
+•  Datas de criação, aceite e conclusão
+•  Permissões documentais resumidas
+Requisitos funcionais
+ADM 07.01  Pesquisar por identificador
+ADM 07.02  Consultar histórico do vínculo
+ADM 07.03  Invalidar convite comprometido
+ADM 07.04  Corrigir estado técnico mediante procedimento
+ADM 07.05  Abrir auditoria
+Regras de negócio e restrições
+•  Equipe não lê conversa por padrão
+•  Correção nunca altera mérito ou documento sem processo formal
+•  Toda intervenção é auditada
+Estados da página
+•  Ativo
+•  Aguardando aceite
+•  Concluído
+•  Vínculo suspenso
+•  Inconsistência
+Navegação
+•  Auditoria abre ADM 12
+•  Conta abre ADM 06
+
+ADM 08
+Administradores do sistema
+Perfil
+Sócios administradores
+Objetivo
+Gerenciar as contas individuais dos sócios que administram o produto.
+Pré-condições
+Sócio autenticado com acesso administrativo completo.
+Elementos e informações exibidas
+•  Nome, e-mail e situação de cada administrador
+•  Último acesso
+•  Autenticação adicional
+•  Eventos administrativos recentes
+•  Ação Adicionar ou desativar administrador
+Requisitos funcionais
+ADM 08.01  Cadastrar conta administrativa individual
+ADM 08.02  Ativar ou desativar acesso
+ADM 08.03  Redefinir proteção por fluxo seguro
+ADM 08.04  Consultar ações realizadas
+ADM 08.05  Encerrar sessões administrativas
+Regras de negócio e restrições
+•  No início todos os sócios possuem acesso completo
+•  Senhas e contas não podem ser compartilhadas
+•  Toda ação registra sócio, data, horário, alvo e resultado
+•  Desativar acesso não apaga o histórico do administrador
+Estados da página
+•  Administrador ativo
+•  Convite pendente
+•  Acesso desativado
+•  Sessão revogada
+•  Atividade suspeita
+Navegação
+•  Auditoria abre ADM 12
+•  Segurança abre ADM 13
+
+ADM 09
+Fila de suporte
+Perfil
+Equipe de atendimento
+Objetivo
+Priorizar e distribuir chamados de usuários.
+Pré-condições
+Colaborador de suporte autenticado.
+Elementos e informações exibidas
+•  Protocolo, usuário, categoria, prioridade e prazo
+•  Situação e responsável
+•  Busca e filtros
+•  Indicadores de espera
+Requisitos funcionais
+ADM 09.01  Pesquisar e filtrar
+ADM 09.02  Atribuir responsável
+ADM 09.03  Alterar prioridade com motivo
+ADM 09.04  Abrir chamado
+ADM 09.05  Responder em lote apenas quando seguro
+Regras de negócio e restrições
+•  Prioridade não concede acesso adicional
+•  Chamados jurídicos devem ser redirecionados sem orientação de mérito
+Estados da página
+•  Novo
+•  Em atendimento
+•  Aguardando usuário
+•  Escalado
+•  Resolvido
+Navegação
+•  Chamado abre ADM 10
+
+ADM 10
+Atendimento do chamado
+Perfil
+Equipe de atendimento
+Objetivo
+Resolver solicitação com histórico, responsabilidade e acesso mínimo.
+Pré-condições
+Chamado selecionado.
+Elementos e informações exibidas
+•  Mensagens e anexos do chamado
+•  Dados mínimos do usuário
+•  Categoria, prioridade e responsável
+•  Histórico de mudanças
+•  Notas internas separadas
+Requisitos funcionais
+ADM 10.01  Responder
+ADM 10.02  Solicitar informação
+ADM 10.03  Adicionar nota interna
+ADM 10.04  Escalar
+ADM 10.05  Vincular incidente
+ADM 10.06  Resolver e reabrir
+Regras de negócio e restrições
+•  Nota interna nunca é enviada ao usuário
+•  Acesso excepcional a dados exige motivo
+•  Solução e alterações ficam auditadas
+Estados da página
+•  Em atendimento
+•  Aguardando usuário
+•  Escalado
+•  Resolvido
+•  Reaberto
+Navegação
+•  Conta abre ADM 06
+•  Incidente abre ADM 13
+
+ADM 11
+Armazenamento e arquivos
+Perfil
+Equipe técnica autorizada
+Objetivo
+Monitorar uso, falhas de processamento e integridade dos arquivos.
+Pré-condições
+Colaborador técnico com privilégio específico.
+Elementos e informações exibidas
+•  Uso por conta e escritório
+•  Uploads falhos
+•  Arquivos em quarentena
+•  Processamentos e classificação
+•  Indicadores de integridade
+Requisitos funcionais
+ADM 11.01  Pesquisar por identificador técnico
+ADM 11.02  Reprocessar arquivo seguro
+ADM 11.03  Isolar arquivo suspeito
+ADM 11.04  Restaurar disponibilidade autorizada
+ADM 11.05  Gerar relatório
+Regras de negócio e restrições
+•  Conteúdo não é aberto sem necessidade e autorização
+•  Quarentena preserva evidência
+•  Reprocessamento não altera versão silenciosamente
+Estados da página
+•  Normal
+•  Falha de processamento
+•  Quarentena
+•  Indisponível
+•  Recuperado
+Navegação
+•  Auditoria abre ADM 12
+•  Incidente abre ADM 13
+
+ADM 12
+Logs e auditoria
+Perfil
+Equipe de segurança e conformidade
+Objetivo
+Consultar eventos relevantes para investigação e prestação de contas.
+Pré-condições
+Colaborador com permissão de auditoria.
+Elementos e informações exibidas
+•  Data, ator, ação, recurso e resultado
+•  Origem e identificador técnico permitido
+•  Filtros por período, conta e evento
+•  Exportação protegida
+Requisitos funcionais
+ADM 12.01  Pesquisar e combinar filtros
+ADM 12.02  Abrir evento
+ADM 12.03  Exportar conjunto autorizado
+ADM 12.04  Preservar evidência
+ADM 12.05  Vincular evento a incidente
+Regras de negócio e restrições
+•  Logs são imutáveis para usuários comuns
+•  Dados exibidos seguem minimização
+•  Exportação é registrada e protegida
+Estados da página
+•  Sem resultado
+•  Eventos encontrados
+•  Consulta limitada
+•  Exportação pronta
+•  Falha
+Navegação
+•  Evento abre detalhe na própria página
+•  Incidente abre ADM 13
+
+ADM 13
+Incidentes de segurança
+Perfil
+Equipe de segurança
+Objetivo
+Registrar, investigar e acompanhar incidentes técnicos ou de privacidade.
+Pré-condições
+Evento ou alerta identificado.
+Elementos e informações exibidas
+•  Identificador, gravidade e estado
+•  Linha do tempo
+•  Contas e recursos afetados
+•  Evidências e responsáveis
+•  Plano de contenção e comunicação
+Requisitos funcionais
+ADM 13.01  Criar incidente
+ADM 13.02  Classificar gravidade
+ADM 13.03  Atribuir responsáveis
+ADM 13.04  Registrar contenção
+ADM 13.05  Vincular logs e chamados
+ADM 13.06  Encerrar com revisão
+Regras de negócio e restrições
+•  Acesso segue necessidade de conhecimento
+•  Evidências não podem ser alteradas
+•  Comunicações legais dependem do processo aprovado
+Estados da página
+•  Aberto
+•  Investigando
+•  Contido
+•  Monitorando
+•  Encerrado
+Navegação
+•  Logs abrem ADM 12
+•  Solicitação de titular abre ADM 14
+
+ADM 14
+Solicitações de privacidade
+Perfil
+Equipe de privacidade
+Objetivo
+Processar pedidos de acesso, exportação, correção e exclusão.
+Pré-condições
+Pedido autenticado recebido.
+Elementos e informações exibidas
+•  Titular e tipo do pedido
+•  Validação de identidade
+•  Prazo e responsável
+•  Sistemas e dados envolvidos
+•  Decisão e fundamento
+Requisitos funcionais
+ADM 14.01  Validar pedido
+ADM 14.02  Solicitar informação
+ADM 14.03  Localizar dados
+ADM 14.04  Aprovar, cumprir ou recusar com fundamento
+ADM 14.05  Gerar resposta e evidência
+Regras de negócio e restrições
+•  Prazos seguem política e legislação aplicável
+•  Retenção legal deve ser documentada
+•  Resposta contém apenas dados do titular autorizado
+Estados da página
+•  Recebida
+•  Validando
+•  Em execução
+•  Aguardando titular
+•  Concluída
+•  Recusada
+Navegação
+•  Conta abre ADM 06
+•  Auditoria abre ADM 12
+
+ADM 15
+Políticas e limites da IA
+Perfil
+Equipe de produto e conformidade
+Objetivo
+Configurar o que os assistentes podem responder e quando devem encaminhar.
+Pré-condições
+Política aprovada e colaborador autorizado.
+Elementos e informações exibidas
+•  Tipos de pergunta permitidos e proibidos
+•  Fontes autorizadas
+•  Limiares de confiança
+•  Regras de encaminhamento
+•  Versão e vigência da política
+Requisitos funcionais
+ADM 15.01  Criar rascunho de política
+ADM 15.02  Simular exemplos
+ADM 15.03  Submeter para aprovação
+ADM 15.04  Publicar versão
+ADM 15.05  Reverter para versão segura
+ADM 15.06  Consultar histórico
+Regras de negócio e restrições
+•  Mudança nunca entra em produção sem aprovação
+•  Política deve preservar identificação da IA
+•  Versão usada em cada resposta precisa ser rastreável
+Estados da página
+•  Rascunho
+•  Em aprovação
+•  Publicada
+•  Suspensa
+•  Versão anterior
+Navegação
+•  Monitoramento abre ADM 16
+•  Auditoria abre ADM 12
+
+ADM 16
+Monitoramento da atuação da IA
+Perfil
+Equipe de qualidade e conformidade
+Objetivo
+Avaliar falhas, encaminhamentos e comportamento dos assistentes sem acesso indiscriminado.
+Pré-condições
+Amostra autorizada e controles de privacidade ativos.
+Elementos e informações exibidas
+•  Indicadores de resposta, recusa e encaminhamento
+•  Erros reportados
+•  Amostras minimizadas
+•  Versão de modelo e política
+•  Filtros por período e tipo
+Requisitos funcionais
+ADM 16.01  Analisar indicador
+ADM 16.02  Abrir caso autorizado
+ADM 16.03  Classificar falha
+ADM 16.04  Encaminhar correção
+ADM 16.05  Suspender função em incidente
+ADM 16.06  Gerar relatório
+Regras de negócio e restrições
+•  Conteúdo jurídico não é usado fora da finalidade autorizada
+•  Avaliação deve separar erro do modelo, documento e configuração
+•  Casos sensíveis exigem acesso reforçado
+Estados da página
+•  Normal
+•  Alerta
+•  Caso em revisão
+•  Função suspensa
+•  Dados insuficientes
+Navegação
+•  Política abre ADM 15
+•  Incidente abre ADM 13
+
+ADM 17
+Categorias e parâmetros documentais
+Perfil
+Equipe de produto autorizada
+Objetivo
+Administrar categorias sugeridas pela IA e regras de organização.
+Pré-condições
+Taxonomia documental habilitada.
+Elementos e informações exibidas
+•  Categorias globais e configurações permitidas
+•  Sinônimos e exemplos
+•  Estado ativo ou inativo
+•  Impacto previsto e histórico
+Requisitos funcionais
+ADM 17.01  Criar categoria
+ADM 17.02  Editar nome e descrição
+ADM 17.03  Adicionar sinônimos
+ADM 17.04  Desativar sem apagar arquivos
+ADM 17.05  Testar classificação
+ADM 17.06  Publicar alteração
+Regras de negócio e restrições
+•  Mudança não move arquivos silenciosamente
+•  Categorias usadas permanecem no histórico
+•  Publicação exige validação e auditoria
+Estados da página
+•  Rascunho
+•  Ativa
+•  Inativa
+•  Em validação
+•  Erro de publicação
+Navegação
+•  Monitoramento abre ADM 16
+•  Auditoria abre ADM 12
+
+Requisitos funcionais gerais
+GER 01  Isolamento de dadosO sistema deve aplicar permissões no servidor para impedir acesso entre clientes, processos e advogados sem vínculo autorizado.
+GER 02  Identificação da IAToda mensagem automática deve ser identificada como Assistente IA. Mensagens humanas devem mostrar o profissional responsável.
+GER 03  ResponsividadeAs mesmas funções devem existir no celular e no computador. O computador pode usar painéis lado a lado sem criar funções exclusivas.
+GER 04  AcessibilidadeControles devem possuir rótulos, área de toque adequada, contraste e estados que não dependam somente de cor.
+GER 05  Rascunhos e retornoBusca, filtro, posição da lista e texto ainda não enviado devem ser preservados quando o usuário abre uma página relacionada e retorna.
+GER 06  NotificaçõesCada notificação deve abrir o convite, conversa, documento ou processo correto e refletir o estado atual do item.
+GER 07  AuditoriaO sistema deve registrar acessos, compartilhamentos, alterações, versões, respostas da IA e intervenções humanas necessárias à investigação.
+GER 08  FalhasPáginas devem tratar carregamento, ausência de dados, busca sem resultado, falta de conexão, nova tentativa e indisponibilidade de arquivo.
+GER 09  Privacidade do assistenteO histórico particular do cliente não pode ser exibido ao advogado nem enviado sem confirmação explícita do conteúdo escolhido.
+GER 10  Processo concluídoConclusão deve bloquear novas mensagens e anexos no processo, mantendo histórico e documentos disponíveis conforme a política de retenção.
+Decisões que permanecem abertas
+•  Método de verificação da OAB
+•  Critérios detalhados de confiança e avaliação da IA
+•  Retenção, exportação e histórico de versões
+•  Papéis e permissões internas do escritório
+•  Reabertura de processo
+•  Escopo final de pesquisa jurídica e elaboração de documentos
+•  Funcionamento detalhado do suporte
