@@ -2,23 +2,11 @@ import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import type { Appointment } from "../domain/types";
-import {
-  canSeeAppointment,
-  cancelAppointment,
-  decideAppointment,
-} from "../domain/calendar";
+import { canSeeAppointment, cancelAppointment } from "../domain/calendar";
 import { transact, useStore } from "../store/store";
-import {
-  Badge,
-  Empty,
-  Field,
-  Form,
-  Modal,
-  PageHeading,
-  useFeedback,
-} from "../components/ui";
+import { Badge, Empty, PageHeading, useFeedback } from "../components/ui";
 import { AppointmentForm } from "../components/calendar/AppointmentForm";
-import { appointmentTime, dayKey, localDateTime } from "../lib/calendar";
+import { appointmentTime, dayKey } from "../lib/calendar";
 
 interface AppointmentCardProps {
   item: Appointment;
@@ -26,8 +14,7 @@ interface AppointmentCardProps {
 }
 function AppointmentCard({ item, onEdit }: AppointmentCardProps) {
   const { db, user } = useStore();
-  const { run, confirm } = useFeedback();
-  const [approving, setApproving] = useState(false);
+  const { confirm } = useFeedback();
   return (
     <article className="panel appointment-card">
       <div className="section-head">
@@ -49,35 +36,12 @@ function AppointmentCard({ item, onEdit }: AppointmentCardProps) {
       {item.notes && <p className="appointment-notes">{item.notes}</p>}
       {item.caseId && (
         <Link to={`/${user!.role}/processos/${item.caseId}/conversa`}>
-          Abrir processo
+          {item.status === "Pendente"
+            ? "Ver solicitação na conversa"
+            : "Abrir processo"}
         </Link>
       )}
       <div className="appointment-actions">
-        {item.status === "Pendente" && item.lawyerId === user!.id && (
-          <>
-            <button
-              className="button primary"
-              onClick={() => setApproving(true)}
-            >
-              Confirmar reunião
-            </button>
-            <button
-              className="button secondary"
-              onClick={() =>
-                confirm(
-                  "Recusar reunião",
-                  "O solicitante será notificado da recusa.",
-                  () =>
-                    transact((d) =>
-                      decideAppointment(d, user!, item.id, false),
-                    ),
-                )
-              }
-            >
-              Recusar
-            </button>
-          </>
-        )}
         {item.kind === "Pessoal" && item.status === "Confirmado" && (
           <button className="button secondary" onClick={() => onEdit(item)}>
             Editar
@@ -99,46 +63,6 @@ function AppointmentCard({ item, onEdit }: AppointmentCardProps) {
           </button>
         )}
       </div>
-      {approving && (
-        <Modal title="Confirmar reunião" onClose={() => setApproving(false)}>
-          <Form
-            onSubmit={(data) => {
-              if (
-                run(
-                  () =>
-                    transact((d) =>
-                      decideAppointment(
-                        d,
-                        user!,
-                        item.id,
-                        true,
-                        new Date(String(data.get("start"))).toISOString(),
-                      ),
-                    ),
-                  "Reunião confirmada e registrada na agenda.",
-                )
-              )
-                setApproving(false);
-            }}
-          >
-            <Field label="Data e horário da confirmação">
-              <input
-                name="start"
-                type="datetime-local"
-                required
-                defaultValue={localDateTime(item.start)}
-              />
-            </Field>
-            <p>
-              Confira o horário com o cliente antes de confirmar. Duração:{" "}
-              {item.duration} minutos.
-            </p>
-            <div className="modal-actions">
-              <button className="button primary">Confirmar e agendar</button>
-            </div>
-          </Form>
-        </Modal>
-      )}
     </article>
   );
 }
@@ -182,12 +106,15 @@ export function Calendar() {
         title="Calendário"
         description="Reuniões confirmadas, solicitações e compromissos em um só lugar."
         action={
-          <button className="button primary" onClick={() => setCreating(true)}>
-            <Plus size={18} />
-            {user!.role === "advogado"
-              ? "Novo compromisso"
-              : "Solicitar reunião"}
-          </button>
+          user!.role === "advogado" && (
+            <button
+              className="button primary"
+              onClick={() => setCreating(true)}
+            >
+              <Plus size={18} />
+              Novo compromisso
+            </button>
+          )
         }
       />
       <div className="calendar-layout">
@@ -287,8 +214,7 @@ export function Calendar() {
       <section className="calendar-requests">
         <h2>Solicitações de reunião ({pending.length})</h2>
         <p className="muted">
-          A IA encaminha os pedidos. A confirmação e a escolha final do horário
-          cabem ao advogado.
+          O advogado confirma o horário da reunião na conversa do processo.
         </p>
         {pending.map((a) => (
           <AppointmentCard key={a.id} item={a} onEdit={setEditing} />
@@ -296,7 +222,7 @@ export function Calendar() {
         {!pending.length && (
           <Empty
             title="Nenhuma solicitação pendente"
-            text="Solicite uma reunião pela conversa do processo ou por esta agenda."
+            text="As reuniões combinadas na conversa do processo aparecem aqui."
           />
         )}
       </section>

@@ -7,8 +7,9 @@ import {
   Info as InfoIcon,
   LockKeyhole,
   Plus,
-  Users,
   Sparkles,
+  Users,
+  X,
 } from "lucide-react";
 import type { Message } from "../domain/types";
 import { useStore, transact, snapshot } from "../store/store";
@@ -46,7 +47,8 @@ import { answer } from "../services/assistant";
 import { date, id, now } from "../lib/format";
 import { Documents } from "./Documents";
 import { SystemPage } from "./System";
-import { AppointmentForm } from "../components/calendar/AppointmentForm";
+import { MeetingMessage } from "../components/calendar/MeetingMessage";
+import { canSeeAppointment } from "../domain/calendar";
 import { isMeetingRequest } from "../services/meetingIntent";
 export function Process() {
   const { processoId } = useParams();
@@ -77,7 +79,7 @@ export function Process() {
   const [history, setHistory] = useState("");
   const [caseHistory, setCaseHistory] = useState(false);
   const [participants, setParticipants] = useState(false);
-  const [meeting, setMeeting] = useState(false);
+  const [contextOpen, setContextOpen] = useState(false);
   const [generating, setGenerating] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   useEffect(
@@ -202,9 +204,30 @@ export function Process() {
     }
   };
   const update = db.updates.find((u) => u.id === updateEdit);
+  const chat = tab === "conversa";
+  const appointments = db.appointments.filter(
+    (appointment) =>
+      appointment.caseId === c.id && canSeeAppointment(user!, appointment),
+  );
+  const pendingWithoutMessage = appointments.filter(
+    (appointment) =>
+      appointment.status === "Pendente" &&
+      !messages.some(
+        (message) =>
+          message.appointmentId === appointment.id ||
+          message.id === appointment.sourceMessageId,
+      ),
+  );
+  const meetingMessages = new Map(
+    appointments.map((appointment) => [
+      messages.find((message) => message.appointmentId === appointment.id)
+        ?.id || appointment.sourceMessageId,
+      appointment,
+    ]),
+  );
   return (
-    <div className="process-page">
-      <header className="process-heading">
+    <div className={`process-page ${chat ? "conversation-page" : ""}`}>
+      <header className={chat ? "conversation-header" : "process-heading"}>
         <Link
           className="icon-button"
           aria-label="Voltar aos processos"
@@ -212,32 +235,78 @@ export function Process() {
         >
           <ArrowLeft size={20} />
         </Link>
-        <span className="case-symbol">
-          <FileText size={23} />
-        </span>
-        <div>
-          <h1>{c.title}</h1>
-          <p>
-            {c.area} <span>·</span> {c.number || "Número não informado"}
-          </p>
-        </div>
-        <Badge>{c.status}</Badge>
-        {write && (
-          <button className="button secondary" onClick={() => setMeeting(true)}>
-            Solicitar reunião
-          </button>
-        )}
         <button
-          className="icon-button"
+          className="conversation-avatar icon-button"
           aria-label="Ver participantes"
+          title="Ver participantes"
           onClick={() => setParticipants(true)}
         >
-          <Users size={21} />
+          <span className="case-symbol">
+            <FileText size={23} />
+          </span>
         </button>
+        <div className="conversation-identity">
+          <h1 title={c.title}>{c.title}</h1>
+          <p className="conversation-status">
+            {chat ? (
+              c.mode === "Atendimento humano" ? (
+                `Atendimento com ${db.users.find((u) => u.id === c.claimedBy)?.name || "advogado"}`
+              ) : lawyer ? (
+                c.mode
+              ) : (
+                "Assistente IA"
+              )
+            ) : (
+              <>
+                {c.area} <span>·</span> {c.number || "Número não informado"}
+              </>
+            )}
+          </p>
+        </div>
+        {c.status !== "Ativo" && <Badge>{c.status}</Badge>}
+        {chat &&
+          lawyer &&
+          write &&
+          (!c.claimedBy || c.claimedBy === user!.id) && (
+            <button
+              className="button secondary conversation-claim"
+              aria-label={
+                c.claimedBy ? "Encerrar atendimento" : "Assumir atendimento"
+              }
+              title={
+                c.claimedBy ? "Encerrar atendimento" : "Assumir atendimento"
+              }
+              onClick={() =>
+                run(
+                  () =>
+                    transact((d) => claimCase(d, user!, c.id, !!c.claimedBy)),
+                  c.claimedBy
+                    ? "Atendimento humano encerrado."
+                    : "Você assumiu o atendimento. A IA está pausada.",
+                )
+              }
+            >
+              <span>
+                {c.claimedBy ? "Encerrar atendimento" : "Assumir atendimento"}
+              </span>
+              <span className="conversation-claim-short" aria-hidden="true">
+                {c.claimedBy ? "Encerrar" : "Assumir"}
+              </span>
+            </button>
+          )}
+        {chat && (
+          <button
+            className="icon-button"
+            aria-label="Detalhes do processo"
+            title="Detalhes do processo"
+            aria-expanded={contextOpen}
+            aria-controls="process-context"
+            onClick={() => setContextOpen(!contextOpen)}
+          >
+            <Users size={21} />
+          </button>
+        )}
       </header>
-      {meeting && (
-        <AppointmentForm caseItem={c} onClose={() => setMeeting(false)} />
-      )}
       <div className="process-tabs tabs">
         {[
           ["conversa", "Conversa"],
@@ -257,61 +326,8 @@ export function Process() {
       {tab === "documentos" ? (
         <Documents />
       ) : tab === "conversa" ? (
-        <div className="chat-layout">
+        <div className={`chat-layout ${contextOpen ? "has-context" : ""}`}>
           <section className="chat-panel">
-            <div className="chat-state">
-              <span>
-                {c.mode === "Atendimento humano" ? (
-                  <>
-                    <Avatar
-                      small
-                      name={
-                        db.users.find((u) => u.id === c.claimedBy)?.name ||
-                        "Advogado"
-                      }
-                    />
-                    <strong>
-                      Atendimento com{" "}
-                      {db.users.find((u) => u.id === c.claimedBy)?.name}
-                    </strong>
-                  </>
-                ) : (
-                  <>
-                    <Sparkles size={17} />
-                    <strong>{lawyer ? c.mode : "Assistente IA"}</strong>
-                  </>
-                )}
-              </span>
-              {lawyer &&
-                write &&
-                (!c.claimedBy ? (
-                  <button
-                    className="button secondary small-button"
-                    onClick={() =>
-                      run(
-                        () => transact((d) => claimCase(d, user!, c.id)),
-                        "Você assumiu o atendimento. A IA está pausada.",
-                      )
-                    }
-                  >
-                    Assumir atendimento
-                  </button>
-                ) : c.claimedBy === user!.id ? (
-                  <button
-                    className="button secondary small-button"
-                    onClick={() =>
-                      run(
-                        () => transact((d) => claimCase(d, user!, c.id, true)),
-                        "Atendimento humano encerrado.",
-                      )
-                    }
-                  >
-                    Encerrar atendimento
-                  </button>
-                ) : (
-                  <Badge>IA pausada</Badge>
-                ))}
-            </div>
             {!user!.preferences.aiAware && (
               <Info>
                 Assistente IA: respostas simuladas, com fontes salvas e sem
@@ -341,6 +357,24 @@ export function Process() {
             )}
             <Messages
               messages={messages}
+              footer={
+                pendingWithoutMessage.length > 0 && (
+                  <div className="pending-chat-meetings">
+                    {pendingWithoutMessage.map((appointment) => (
+                      <MeetingMessage
+                        key={appointment.id}
+                        appointment={appointment}
+                      />
+                    ))}
+                  </div>
+                )
+              }
+              renderExtra={(message) => {
+                const appointment = meetingMessages.get(message.id);
+                return appointment ? (
+                  <MeetingMessage appointment={appointment} />
+                ) : null;
+              }}
               onOpen={(id, version) => setViewer({ id, version })}
               onReply={write ? setReply : undefined}
               onRetry={(m) => {
@@ -407,60 +441,75 @@ export function Process() {
               </div>
             )}
           </section>
-          <aside className="chat-context">
-            <h3>Neste processo</h3>
-            <span className="eyebrow">PARTICIPANTES</span>
-            {[...c.clients, ...c.lawyers].map((uid) => {
-              const u = db.users.find((u) => u.id === uid)!;
-              return (
+          {contextOpen && (
+            <aside
+              className="chat-context"
+              id="process-context"
+              aria-label="Detalhes do processo"
+            >
+              <div className="conversation-context-heading">
+                <h3>Neste processo</h3>
                 <button
-                  key={uid}
-                  className="participant"
-                  onClick={() => setParticipants(true)}
+                  className="icon-button"
+                  aria-label="Fechar detalhes"
+                  onClick={() => setContextOpen(false)}
                 >
-                  <Avatar small name={u.name} />
-                  <span>
-                    {u.name}
-                    <small>
-                      {u.role === "advogado" ? "OAB " + u.oab : "Cliente"}
-                    </small>
-                  </span>
+                  <X size={18} />
                 </button>
-              );
-            })}
-            <div className="context-section">
-              <span className="eyebrow">ÚLTIMO ANDAMENTO PÚBLICO</span>
-              <h4>
-                {updates.find((u) => u.public)?.title ||
-                  "Nenhum andamento publicado"}
-              </h4>
-              <p>{updates.find((u) => u.public)?.description}</p>
-              <Link to={base + "/andamentos"}>Ver linha do tempo</Link>
-            </div>
-            <div className="context-section">
-              <span className="eyebrow">DOCUMENTOS</span>
-              {db.documents
-                .filter(
-                  (d) => d.caseId === c.id && canAccessDocument(user!, d, db),
-                )
-                .slice(0, 3)
-                .map((d) => (
+              </div>
+              <span className="eyebrow">PARTICIPANTES</span>
+              {[...c.clients, ...c.lawyers].map((uid) => {
+                const u = db.users.find((u) => u.id === uid)!;
+                return (
                   <button
-                    className="context-doc"
-                    key={d.id}
-                    onClick={() => setViewer({ id: d.id })}
+                    key={uid}
+                    className="participant"
+                    onClick={() => setParticipants(true)}
                   >
-                    <FileText size={17} />
-                    <span>{d.name}</span>
+                    <Avatar small name={u.name} />
+                    <span>
+                      {u.name}
+                      <small>
+                        {u.role === "advogado" ? "OAB " + u.oab : "Cliente"}
+                      </small>
+                    </span>
                   </button>
-                ))}
-              <Link to={base + "/documentos"}>Abrir documentos</Link>
-            </div>
-            <p className="context-disclaimer">
-              <InfoIcon size={15} />
-              Atualizações manuais. Sem conexão com tribunais.
-            </p>
-          </aside>
+                );
+              })}
+              <div className="context-section">
+                <span className="eyebrow">ÚLTIMO ANDAMENTO PÚBLICO</span>
+                <h4>
+                  {updates.find((u) => u.public)?.title ||
+                    "Nenhum andamento publicado"}
+                </h4>
+                <p>{updates.find((u) => u.public)?.description}</p>
+                <Link to={base + "/andamentos"}>Ver linha do tempo</Link>
+              </div>
+              <div className="context-section">
+                <span className="eyebrow">DOCUMENTOS</span>
+                {db.documents
+                  .filter(
+                    (d) => d.caseId === c.id && canAccessDocument(user!, d, db),
+                  )
+                  .slice(0, 3)
+                  .map((d) => (
+                    <button
+                      className="context-doc"
+                      key={d.id}
+                      onClick={() => setViewer({ id: d.id })}
+                    >
+                      <FileText size={17} />
+                      <span>{d.name}</span>
+                    </button>
+                  ))}
+                <Link to={base + "/documentos"}>Abrir documentos</Link>
+              </div>
+              <p className="context-disclaimer">
+                <InfoIcon size={15} />
+                Atualizações manuais. Sem conexão com tribunais.
+              </p>
+            </aside>
+          )}
         </div>
       ) : tab === "andamentos" ? (
         <div className="page">

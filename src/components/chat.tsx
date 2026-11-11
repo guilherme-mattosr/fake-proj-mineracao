@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import {
   ArrowUp,
   FileText,
@@ -17,12 +18,16 @@ export interface MessagesProps {
   onOpen: (id: string, version?: number) => void;
   onRetry?: (m: Message) => void;
   onReply?: (m: Message) => void;
+  renderExtra?: (message: Message) => ReactNode;
+  footer?: ReactNode;
 }
 export function Messages({
   messages,
   onOpen,
   onRetry,
   onReply,
+  renderExtra,
+  footer,
 }: MessagesProps) {
   const { db, user } = useStore();
   const container = useRef<HTMLDivElement>(null);
@@ -97,6 +102,7 @@ export function Messages({
               </div>
               {reply && <blockquote>{reply.text.slice(0, 120)}</blockquote>}
               {m.text && <p>{m.text}</p>}
+              {renderExtra?.(m)}
               {m.attachment && (
                 <button
                   className="attachment"
@@ -167,6 +173,7 @@ export function Messages({
           </article>
         );
       })}
+      {footer}
     </div>
   );
 }
@@ -240,6 +247,7 @@ export function Composer({
         <button
           type="button"
           className="audio-button"
+          aria-label="Enviar áudio fictício"
           onClick={onAudio}
           disabled={disabled || mediaDisabled}
           title={

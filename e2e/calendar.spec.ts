@@ -34,7 +34,7 @@ test("Pedido no chat, confirmação e persistência na agenda do cliente", async
     .getByRole("button", { name: "Sair da conta", exact: true })
     .click();
   await login(page, "a1");
-  await page.goto("/advogado/calendario");
+  await page.goto("/advogado/processos/p1/conversa");
   await page
     .getByRole("button", { name: "Confirmar reunião", exact: true })
     .click();
@@ -42,7 +42,12 @@ test("Pedido no chat, confirmação e persistência na agenda do cliente", async
     .getByLabel("Data e horário da confirmação")
     .fill("2027-01-10T14:30");
   await page.getByRole("button", { name: "Confirmar e agendar" }).click();
-  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(
+    page.locator(".meeting-message").getByText("Confirmado", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByText(/Reunião confirmada por Mariana Almeida/),
+  ).toBeVisible();
   await page.goto("/advogado/calendario?dia=2027-01-10");
   await expect(
     page.locator(".appointment-card").getByText("Confirmado", { exact: true }),

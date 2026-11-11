@@ -101,7 +101,7 @@ export function createAppointment(db: DB, user: User, input: AppointmentInput) {
       db,
       lawyer!.id,
       `IA: confirme a reunião em ${c.title}`,
-      "/advogado/calendario",
+      `/advogado/processos/${c.id}/conversa`,
       "Agenda",
     );
   audit(db, user, c ? "Solicitar reunião" : "Criar compromisso", item.id);
@@ -136,6 +136,19 @@ export function decideAppointment(
     `Reunião ${accept ? "confirmada" : "recusada"}: ${item!.title}`,
   );
   audit(db, user, accept ? "Confirmar reunião" : "Recusar reunião", aid);
+  if (item!.caseId) {
+    db.messages.push({
+      id: id(),
+      caseId: item!.caseId,
+      author: "ia",
+      at: now(),
+      status: "Entregue",
+      appointmentId: item!.id,
+      text: accept
+        ? `Reunião confirmada por ${user.name} para ${new Date(item!.start!).toLocaleString("pt-BR")}. O encontro foi registrado na agenda.`
+        : `Reunião recusada por ${user.name}. Vocês podem combinar outro horário nesta conversa.`,
+    });
+  }
 }
 export function cancelAppointment(db: DB, user: User, aid: string) {
   user = actor(db, user);

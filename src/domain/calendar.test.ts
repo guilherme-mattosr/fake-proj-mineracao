@@ -41,7 +41,9 @@ describe("Agenda e confirmação de reuniões", () => {
     expect(item.status).toBe("Pendente");
     expect(
       db.notices.some(
-        (n) => n.userId === lawyer.id && n.path === "/advogado/calendario",
+        (n) =>
+          n.userId === lawyer.id &&
+          n.path === "/advogado/processos/p1/conversa",
       ),
     ).toBe(true);
     expect(() =>
@@ -109,6 +111,11 @@ describe("Agenda e confirmação de reuniões", () => {
     expect(db.appointments[0].status).toBe("Pendente");
     expect(db.appointments[0].start).toBeDefined();
     expect(db.messages.at(-1)?.author).toBe("ia");
+    expect(db.messages.at(-1)?.appointmentId).toBe(db.appointments[0].id);
+    const meeting = db.appointments[0];
+    decideAppointment(db, lawyer, meeting.id, true, input.start);
+    expect(db.messages.at(-1)?.text).toContain("Reunião confirmada");
+    expect(db.messages.at(-1)?.caseId).toBe("p1");
     sendMessage(db, lawyer, "p1", "Vamos marcar uma reunião?");
     expect(db.appointments).toHaveLength(2);
     expect(db.appointments[0].start).toBeUndefined();

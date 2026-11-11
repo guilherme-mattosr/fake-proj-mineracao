@@ -165,7 +165,7 @@ export function sendMessage(
       ),
     );
   if (isMeetingRequest(text)) {
-    createAppointment(db, u, {
+    const appointment = createAppointment(db, u, {
       title: "Reunião: " + c.title,
       caseId: c.id,
       lawyerId: u.role === "advogado" ? u.id : c.lawyers[0],
@@ -179,7 +179,8 @@ export function sendMessage(
       id: id(),
       caseId,
       author: "ia",
-      text: "Solicitação de reunião enviada ao advogado. Ele precisa conferir a data e confirmar na agenda. O encontro só será agendado após essa confirmação.",
+      text: "Solicitação de reunião enviada ao advogado. Ele pode conferir o horário e confirmar aqui na conversa para registrar o encontro na agenda.",
+      appointmentId: appointment.id,
       at: now(),
       status: "Entregue",
     });

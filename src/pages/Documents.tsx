@@ -114,25 +114,28 @@ export function Documents() {
     <div className="page">
       <PageHeading
         title="Documentos"
-        description="Cada arquivo no seu contexto. Encontre, consulte e compartilhe com clareza."
         action={
           cases.some((c) => canWriteCase(user!, c)) && (
-            <button
-              className="button primary"
-              onClick={() => setUploading(true)}
-            >
-              <Plus size={18} />
-              Enviar documento
-            </button>
+            <div className="heading-actions">
+              {user!.role === "advogado" && (
+                <button
+                  className="button secondary"
+                  onClick={() => setAskFile(true)}
+                >
+                  Solicitar documento ao cliente
+                </button>
+              )}
+              <button
+                className="button primary"
+                onClick={() => setUploading(true)}
+              >
+                <Plus size={18} />
+                Enviar documento
+              </button>
+            </div>
           )
         }
       />
-      {user!.role === "advogado" &&
-        cases.some((c) => canWriteCase(user!, c)) && (
-          <button className="text-link" onClick={() => setAskFile(true)}>
-            Solicitar documento ao cliente
-          </button>
-        )}
       {pendingFileRequests.length > 0 && (
         <section className="panel file-requests">
           <header className="section-head">
@@ -233,12 +236,26 @@ export function Documents() {
             </div>
             <Badge>{selectedCase?.status || "Biblioteca"}</Badge>
           </header>
-          <div className="list-toolbar">
+          <div className="list-toolbar document-filters">
             <SearchInput
               value={q}
               onChange={setQ}
               placeholder="Buscar documento ou categoria"
             />
+            <select
+              aria-label="Categoria dos documentos"
+              value={category}
+              onChange={(e) => {
+                setCategory(e.target.value);
+                setVisible(12);
+              }}
+            >
+              {["Todas", ...db.categories.map((c) => c.name)].map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat === "Todas" ? "Todas as categorias" : cat}
+                </option>
+              ))}
+            </select>
             <select
               aria-label="Ordenação dos documentos"
               value={sort}
@@ -247,20 +264,6 @@ export function Documents() {
               <option value="recent">Mais recentes</option>
               <option value="name">Nome A–Z</option>
             </select>
-          </div>
-          <div className="category-strip">
-            {["Todas", ...db.categories.map((c) => c.name)].map((cat) => (
-              <button
-                key={cat}
-                className={category === cat ? "active" : ""}
-                onClick={() => {
-                  setCategory(cat);
-                  setVisible(12);
-                }}
-              >
-                {cat}
-              </button>
-            ))}
           </div>
           {docs.slice(0, visible).map((d) => (
             <div className="document-row" key={d.id}>

@@ -3,8 +3,8 @@
 ## Agenda e organização dos componentes
 
 - A área redundante **Conversas** foi retirada. As conversas continuam dentro de cada processo; URLs antigas de `/conversas` redirecionam para `/processos`.
-- **Calendário** está disponível para advogados e clientes. O advogado cria, edita e cancela compromissos pessoais; o cliente solicita reuniões vinculadas aos seus processos ativos.
-- Pedidos de reunião no chat são identificados por regras locais de simulação de IA. Exemplo: `Quero marcar uma reunião em 10/01/2027 às 14h30`. Datas incompletas ficam para definição do advogado. Um pedido não reserva horário: somente a confirmação do advogado registra o encontro, após verificar conflitos. O solicitante é notificado da decisão.
+- **Calendário** está disponível para advogados e clientes. O advogado cria, edita e cancela compromissos pessoais. Reuniões com clientes começam durante a conversa do processo.
+- Pedidos de reunião no chat são identificados por regras locais de simulação de IA. Exemplo: `Quero marcar uma reunião em 10/01/2027 às 14h30`. O advogado confere o horário e confirma no cartão da conversa, registrando o encontro na agenda após verificar conflitos. A decisão aparece no chat e nas notificações.
 - A tela inicial mostra os compromissos confirmados do dia e a quantidade de solicitações pendentes. A agenda usa o fuso do dispositivo e persiste no navegador, sem sincronização com Google Calendar, Outlook ou serviços externos.
 - Administradores entram pela opção **Advogado**, informando seu e-mail e senha. Não há seletor de perfil nem atalho de demonstração administrativo. O fator adicional demonstrativo continua sendo `123456`.
 - Componentes básicos reutilizáveis estão em `src/components/ui/`, cada um em seu arquivo e com interface de props nomeada. Componentes da agenda ficam em `src/components/calendar/`, regras em `src/domain/calendar.ts`, reconhecimento de pedidos em `src/services/meetingIntent.ts` e formatação de datas em `src/lib/calendar.ts`.

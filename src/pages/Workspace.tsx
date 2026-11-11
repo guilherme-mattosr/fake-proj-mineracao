@@ -217,13 +217,7 @@ export function Cases({ clients = false }: CasesProps) {
     <div className="page">
       <PageHeading
         title={client?.name || (clients ? "Clientes" : "Processos")}
-        description={
-          client
-            ? `${client.email} · ${client.phone}`
-            : clients
-              ? "Relacionamentos próximos. Atendimento organizado."
-              : "Cada processo, com suas conversas e documentos no lugar certo."
-        }
+        description={client ? `${client.email} · ${client.phone}` : undefined}
         action={
           isLawyer(user!) && (
             <button className="button primary" onClick={() => setCreate(true)}>

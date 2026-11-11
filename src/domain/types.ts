@@ -56,6 +56,7 @@ export interface Message {
   status: "Enviando" | "Enviada" | "Entregue" | "Falhou";
   replyTo?: string;
   policy?: number;
+  appointmentId?: string;
 }
 export interface Invitation {
   id: string;
