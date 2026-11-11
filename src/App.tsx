@@ -2,6 +2,7 @@ import { Component, Suspense, lazy, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import {
   BrowserRouter,
+  HashRouter,
   Navigate,
   Route,
   Routes,
@@ -25,6 +26,7 @@ import { Documents } from "./pages/Documents";
 import { Assistant } from "./pages/Assistant";
 import { Internal } from "./pages/Internal";
 import { Calendar } from "./pages/Calendar";
+import { loginHref, usesHashRouting } from "./lib/routing";
 import {
   DocumentRequests,
   Notifications,
@@ -34,6 +36,7 @@ import {
 const Admin = lazy(() =>
   import("./pages/Admin").then((m) => ({ default: m.Admin })),
 );
+const ApplicationRouter = usesHashRouting ? HashRouter : BrowserRouter;
 function Home() {
   const { user } = useStore();
   return (
@@ -134,7 +137,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, { error: boolean }> {
                 )
               ) {
                 reset();
-                window.location.assign("/login");
+                window.location.assign(loginHref());
               }
             }}
           >
@@ -170,10 +173,19 @@ function LoadWarning() {
 export default function App() {
   return (
     <ErrorBoundary>
-      <BrowserRouter>
+      <ApplicationRouter>
         <ScrollMemory />
         <FeedbackProvider>
-          <a className="skip-link" href="#main-content">
+          <a
+            className="skip-link"
+            href="#main-content"
+            onClick={(event) => {
+              event.preventDefault();
+              const main = document.getElementById("main-content");
+              main?.focus();
+              main?.scrollIntoView();
+            }}
+          >
             Pular para conteúdo
           </a>
           <Connectivity />
@@ -281,7 +293,7 @@ export default function App() {
             </Routes>
           </Suspense>
         </FeedbackProvider>
-      </BrowserRouter>
+      </ApplicationRouter>
     </ErrorBoundary>
   );
 }

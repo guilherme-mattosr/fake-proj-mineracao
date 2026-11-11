@@ -18,6 +18,7 @@ import {
 } from "../components/ui";
 import { date, download, id, includes, now, time } from "../lib/format";
 import { canAccessCase, canAccessDocument } from "../domain/permissions";
+import { loginHref } from "../lib/routing";
 export function Settings() {
   const { db, user } = useStore();
   const { run, confirm, toast } = useFeedback();
@@ -149,8 +150,7 @@ export function Settings() {
                     "Todas as alterações feitas no Elo Jurídico neste navegador serão substituídas pelos dados fictícios originais. Os arquivos reais do computador não serão alterados.",
                     () => {
                       reset();
-                      window.location.hash = "";
-                      window.location.assign("/login");
+                      window.location.assign(loginHref());
                     },
                     true,
                   )

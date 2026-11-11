@@ -36,6 +36,24 @@ Os testes de navegador usam o Chrome instalado (`channel: chrome`). Se usar Chro
 
 Para servir `dist/` em outro servidor, configure o fallback das rotas da SPA para `index.html`. `vite preview` já permite testar essas rotas localmente.
 
+## GitHub Pages
+
+O workflow `.github/workflows/pages.yml` publica a branch `main` pelo GitHub Actions. Nas configurações do repositório, a origem de Pages deve ser **GitHub Actions**. O endereço é `https://guilherme-mattosr.github.io/fake-proj-mineracao/`.
+
+A publicação usa rotas com `#`, como `/fake-proj-mineracao/#/login`, para permitir recarregar e abrir links internos no GitHub Pages. O desenvolvimento local usa as rotas habituais. Cada navegador mantém seus próprios dados de demonstração.
+
+Para conferir a mesma build localmente no PowerShell, execute
+
+```powershell
+$env:VITE_BASE_PATH = "/fake-proj-mineracao/"
+$env:VITE_ROUTER_MODE = "hash"
+npm.cmd run build
+Remove-Item Env:VITE_BASE_PATH, Env:VITE_ROUTER_MODE
+npm.cmd run preview -- --base /fake-proj-mineracao/
+```
+
+Abra `http://127.0.0.1:4173/fake-proj-mineracao/`.
+
 ## Contas de demonstração
 
 Na tela de acesso, escolha uma conta em **Explore a demonstração**. Esse atalho é exclusivo do protótipo e não representa autenticação segura. O formulário normal valida perfil e senha. O acesso normal abre Clientes para o advogado e Processos para o cliente; o atalho de demonstração abre a visão geral.

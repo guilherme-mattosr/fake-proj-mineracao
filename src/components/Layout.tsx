@@ -127,7 +127,7 @@ export function Layout() {
             </button>
           </div>
         </header>
-        <main id="main-content">
+        <main id="main-content" tabIndex={-1}>
           <Outlet />
         </main>
         <footer className="app-footer">
